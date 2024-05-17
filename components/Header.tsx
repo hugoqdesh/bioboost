@@ -32,7 +32,10 @@ const Header = () => {
           <Link href="/" className="hover:text-white transition duration-300">
             Pricing
           </Link>
-          <Link href="/" className="hover:text-white transition duration-300">
+          <Link
+            href="/blog"
+            className="hover:text-white transition duration-300"
+          >
             Blog
           </Link>
           <button className="bg-blue-500 px-8 py-1 rounded text-white hover:bg-blue-600 transform transition-transform duration-300 hover:scale-105">
