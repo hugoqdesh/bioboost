@@ -12,29 +12,39 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <nav className="flex justify-between mt-4 font-semibold items-center">
-        <div className="md:ml-4 xl:ml-0">
-          <Link href="/" className="flex items-center ml-4 md:ml-0">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#13151a] h-24">
+      <div className="mx-auto max-w-7xl px-6 flex justify-between items-center h-full">
+        <div>
+          <Link href="/" className="flex items-center">
             <img src="/link.png" alt="logo" className="w-9 h-9 mr-1" />
-            <p className="text-2xl">BioBoost</p>
+            <p className="text-2xl text-white transition-transform hover:translate-x-1">
+              BioBoost
+            </p>
           </Link>
         </div>
         <div className="hidden md:flex gap-6 items-center text-white/60 md:mr-4 xl:ml-0">
-          <Link href="/">Features</Link>
-          <Link href="/">Store</Link>
-          <Link href="/">Pricing</Link>
-          <Link href="/">Blog</Link>
-          <button className="bg-blue-500 px-8 py-1 rounded text-white">
+          <Link href="/" className="hover:text-white transition duration-300">
+            Features
+          </Link>
+          <Link href="/" className="hover:text-white transition duration-300">
+            Store
+          </Link>
+          <Link href="/" className="hover:text-white transition duration-300">
+            Pricing
+          </Link>
+          <Link href="/" className="hover:text-white transition duration-300">
+            Blog
+          </Link>
+          <button className="bg-blue-500 px-8 py-1 rounded text-white hover:bg-blue-600 transform transition-transform duration-300 hover:scale-105">
             Login
           </button>
         </div>
         <div className="md:hidden flex items-center">
           <button onClick={handleClick} className="text-2xl mr-4">
-            {isNavOpen ? "" : <GiHamburgerMenu />}
+            {isNavOpen ? "X" : <GiHamburgerMenu />}
           </button>
         </div>
-      </nav>
+      </div>
 
       {/* Backdrop Overlay */}
       <div
@@ -50,7 +60,7 @@ const Header = () => {
           isNavOpen ? "translate-x-0" : "translate-x-full"
         } fixed top-0 right-0 h-full w-2/3 bg-[#13151a]  text-white shadow-lg p-8 transform transition-transform duration-300 ease-in-out md:hidden`}
       >
-        <div className="flex flex-col items-center gap-6 mt-10">
+        <div className="flex flex-col items-center gap-6 mt-16">
           <Link
             href="/"
             onClick={() => setIsNavOpen(false)}

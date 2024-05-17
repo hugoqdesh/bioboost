@@ -6,7 +6,7 @@ import Link from "next/link";
 const MainPage = () => {
   return (
     <main className="container mx-auto">
-      <section className="grid grid-cols-1 md:grid-cols-2 mt-20 items-center text-center md:text-start">
+      <section className="grid grid-cols-1 md:grid-cols-2 mt-32 md:mt-20 items-center text-center md:text-start">
         <div className="md:ml-0 lg:ml-4 xl:ml-0">
           <h1 className="text-4xl md:text-5xl mb-3 font-semibold leading-tight ">
             Make <span className="text-blue-500">BioBoost</span> your{" "}
@@ -21,7 +21,7 @@ const MainPage = () => {
             <span className="text-[#FF0000]">YouTube</span>, and more.
           </p>
 
-          <button className="bg-blue-500 px-8 py-3 rounded-md text-white text-xl font-semibold">
+          <button className="bg-blue-500 px-8 py-3 rounded-md text-white text-xl font-semibold hover:bg-blue-600 transform transition-transform duration-300 hover:scale-105">
             Get Started
           </button>
         </div>
@@ -30,7 +30,7 @@ const MainPage = () => {
         </div>
       </section>
 
-      <section className="text-center mt-36">
+      <section className="text-center mt-48">
         <p className="mb-3 text-5xl">
           Trusted by top{" "}
           <span className="text-blue-500"> creators worldwide </span>
