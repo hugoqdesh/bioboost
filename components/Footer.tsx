@@ -35,7 +35,7 @@ const Footer = () => {
             </li>
             <li className="text-center">
               <Link
-                href="/"
+                href="/privacy"
                 className="text-white/50 hover:text-white transition duration-200"
               >
                 Privacy
