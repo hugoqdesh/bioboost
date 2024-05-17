@@ -6,7 +6,7 @@ export default function Home() {
     <div>
       <Header></Header>
       <section className="mt-40">
-        <h1 className="text-blue-500 text-4xl md:text-5xl mb-3 font-semibold leading-tight">
+        <h1 className="text-blue-500 text-4xl md:text-5xl mb-3 font-semibold leading-tight text-center md:text-start">
           BioBoost Blog
         </h1>
         <div className="flex justify-center h-96 mt-40">

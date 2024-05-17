@@ -86,7 +86,7 @@ const Header = () => {
             Pricing
           </Link>
           <Link
-            href="/"
+            href="/blog"
             onClick={() => setIsNavOpen(false)}
             className="text-lg font-semibold"
           >
