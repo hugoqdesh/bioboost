@@ -43,7 +43,7 @@ const Footer = () => {
             </li>
             <li className="text-center">
               <Link
-                href="/"
+                href="/tos"
                 className="text-white/50 hover:text-white transition duration-200"
               >
                 ToS
