@@ -10,7 +10,7 @@ export function InfiniteMovingCardsDemo() {
       <div className="lg:max-w-4xl md:max-w-3xl max-w-md mx-auto p-4">
         <div className="h-100 overflow-hidden rounded-md">
           <InfiniteMovingCards items={users} direction="left" speed="slow" />
-          <InfiniteMovingCards items={users} direction="right" speed="normal" />
+          <InfiniteMovingCards items={users} direction="right" speed="slow" />
         </div>
       </div>
     </div>

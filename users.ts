@@ -124,29 +124,4 @@ export const users = [
       "https://i.pinimg.com/564x/22/93/46/22934629a913e2f3ac04822df22dd83c.jpg",
     name: "Crow",
   },
-  {
-    avatar:
-      "https://i.pinimg.com/564x/5e/f7/e2/5ef7e22ec8ecaa4f06c26b697f02f281.jpg",
-    name: "Jelly",
-  },
-  {
-    avatar:
-      "https://i.pinimg.com/564x/2e/f5/71/2ef571752c2e7458ae280dbe172506e7.jpg",
-    name: "cas",
-  },
-  {
-    avatar:
-      "https://i.pinimg.com/564x/35/53/ef/3553ef7f245b9806afb5852b1fab9599.jpg",
-    name: "simp",
-  },
-  {
-    avatar:
-      "https://i.pinimg.com/564x/36/d7/c7/36d7c7665a3d3f9f999467b5fadc2f30.jpg",
-    name: "Spots",
-  },
-  {
-    avatar:
-      "https://i.pinimg.com/564x/9a/0d/fc/9a0dfcf87f3ab996d92ddaca0b5f4acb.jpg",
-    name: "kat",
-  },
 ];
