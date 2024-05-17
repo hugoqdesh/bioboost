@@ -99,4 +99,54 @@ export const users = [
       "https://i.pinimg.com/564x/cc/76/4e/cc764ec24732bcfe69963a4ff933d67f.jpg",
     name: "v",
   },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/34/86/e5/3486e58a709d7faeb1e119a1d63973af.jpg",
+    name: "Lana",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/e8/2e/b6/e82eb6c91de024a40c5dbe4796dfa41b.jpg",
+    name: "racoon",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/17/dc/5f/17dc5ffe0efe1d62521035e816cfe214.jpg",
+    name: "Raku",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/7b/38/43/7b3843fac19fdd6fec7e51769e240799.jpg",
+    name: "Alex",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/22/93/46/22934629a913e2f3ac04822df22dd83c.jpg",
+    name: "Crow",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/5e/f7/e2/5ef7e22ec8ecaa4f06c26b697f02f281.jpg",
+    name: "Jelly",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/2e/f5/71/2ef571752c2e7458ae280dbe172506e7.jpg",
+    name: "cas",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/35/53/ef/3553ef7f245b9806afb5852b1fab9599.jpg",
+    name: "simp",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/36/d7/c7/36d7c7665a3d3f9f999467b5fadc2f30.jpg",
+    name: "Spots",
+  },
+  {
+    avatar:
+      "https://i.pinimg.com/564x/9a/0d/fc/9a0dfcf87f3ab996d92ddaca0b5f4acb.jpg",
+    name: "kat",
+  },
 ];
