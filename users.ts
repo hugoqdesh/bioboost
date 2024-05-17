@@ -47,7 +47,7 @@ export const users = [
   {
     avatar:
       "https://i.pinimg.com/564x/ce/87/84/ce878446225cf06de2bf130c8811fcde.jpg",
-    name: "John Doe",
+    name: "Xyz",
   },
   {
     avatar:
