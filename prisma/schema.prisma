@@ -1,16 +1,19 @@
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  url          = env("DATABASE_URL")
 }
+
 
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
+ 
 model User {
   id            String          @id @default(cuid())
   name          String?
+  username      String?         @unique
   email         String          @unique
   emailVerified DateTime?
   image         String?
