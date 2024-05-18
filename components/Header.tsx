@@ -23,14 +23,11 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden md:flex gap-6 items-center text-white/60 md:mr-4 xl:ml-0">
-          <Link href="/" className="hover:text-white transition duration-300">
-            Features
-          </Link>
-          <Link href="/" className="hover:text-white transition duration-300">
+          <Link
+            href="/store"
+            className="hover:text-white transition duration-300"
+          >
             Store
-          </Link>
-          <Link href="/" className="hover:text-white transition duration-300">
-            Pricing
           </Link>
           <Link
             href="/blog"
@@ -65,25 +62,11 @@ const Header = () => {
       >
         <div className="flex flex-col items-center gap-6 mt-16">
           <Link
-            href="/"
-            onClick={() => setIsNavOpen(false)}
-            className="text-lg font-semibold"
-          >
-            Features
-          </Link>
-          <Link
-            href="/"
+            href="/store"
             onClick={() => setIsNavOpen(false)}
             className="text-lg font-semibold"
           >
             Store
-          </Link>
-          <Link
-            href="/"
-            onClick={() => setIsNavOpen(false)}
-            className="text-lg font-semibold"
-          >
-            Pricing
           </Link>
           <Link
             href="/blog"
