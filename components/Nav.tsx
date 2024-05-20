@@ -1,57 +1,48 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
+import { GiUpgrade } from "react-icons/gi";
+import { CiSettings } from "react-icons/ci";
+import { IoIosStats } from "react-icons/io";
+import { FaUserEdit } from "react-icons/fa";
 
 const Nav = () => {
+  const pathname = usePathname();
+
+  const navItems = [
+    { href: "/dashboard/appearance", icon: FaUserEdit, label: "Appearance" },
+    { href: "/dashboard/stats", icon: IoIosStats, label: "Stats" },
+    { href: "/dashboard/settings", icon: CiSettings, label: "Settings" },
+  ];
+
   return (
-    <nav className="fixed left-3 top-5 w-60 h-[95vh] bg-black rounded-lg">
-      <div className="mt-5 text-center">
-        <Link href="/dashboard/links" className="text-3xl">
-          BioBoost
-        </Link>
+    <nav className="fixed left-3 top-5 w-60 h-[95vh] bg-[#0b0c0f] rounded-lg shadow-lg flex flex-col text-white">
+      <div className="mt-5 mb-5">
+        <div className="text-center mb-8 text-2xl font-bold">BioBoost</div>
+        <div className="flex flex-col space-y-1">
+          {navItems.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className={`flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded transition-colors ${
+                pathname === item.href ? "bg-blue-600" : ""
+              }`}
+            >
+              <item.icon />
+              <span className="ml-4">{item.label}</span>
+            </Link>
+          ))}
+        </div>
       </div>
-
-      <div className="flex flex-col mt-10 text-lg items-center gap-1">
-        <Link
-          href="/dashboard/links"
-          className="hover:text-blue-500 hover:bg-[#13151a] transition duration-300 rounded cursor-pointer py-2 px-[37%]"
-        >
-          Links
-        </Link>
-
-        <Link
-          href="/dashboard/appearance"
-          className="hover:text-blue-500 hover:bg-[#13151a] transition duration-300 rounded cursor-pointer py-2 px-[24%]"
-        >
-          Appearance
-        </Link>
-
-        <Link
-          href="/dashboard/stats"
-          className="hover:text-blue-500 hover:bg-[#13151a] transition duration-300 rounded cursor-pointer py-2 px-[37%]"
-        >
-          Stats
-        </Link>
-
-        <Link
-          href="/dashboard/settings"
-          className="hover:text-blue-500 hover:bg-[#13151a] transition duration-300 rounded cursor-pointer py-2 px-[30%]"
-        >
-          Settings
-        </Link>
-      </div>
-
-      <div className="flex flex-col text-lg mt-[53vh] items-center gap-1">
+      <div className="mt-auto mb-5">
         <Link
           href="/"
-          className="text-black bg-[#ffffff9c] hover:bg-[#ffffff] transition duration-300 rounded cursor-pointer py-2 px-[30%]"
+          className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded transition-colors"
         >
-          Upgrade
-        </Link>
-        <Link
-          href="/"
-          className="text-red-500/50 hover:text-red-500 transition duration-300 rounded cursor-pointer py-2 px-[30%]"
-        >
-          Log out
+          <GiUpgrade />
+          <span className="ml-4">Upgrade</span>
         </Link>
       </div>
     </nav>

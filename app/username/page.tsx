@@ -55,7 +55,7 @@ export default function Home() {
           bioboost/
         </label>
         <input
-          className="p-1 text-white rounded w-72 text-center border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 hover:border-blue-500 hover:ring-1 hover:ring-blue-500 hover:ring-opacity-50 bg-[#13151a] placeholder:text-white/50"
+          className="p-1 text-white rounded w-full text-center border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 hover:border-blue-500 hover:ring-1 hover:ring-blue-500 hover:ring-opacity-50 bg-[#13151a] placeholder:text-white/50"
           type="text"
           id="username"
           value={newUsername}
@@ -64,7 +64,7 @@ export default function Home() {
         />
         <button
           type="submit"
-          className="bg-blue-500 px-8 py-3 rounded-md text-white text-xl font-semibold hover:bg-blue-600 transition duration-200 mt-3"
+          className="px-6 py-2 bg-blue-500 text-white rounded-r hover:bg-blue-600 focus:outline-none"
         >
           Continue
         </button>
