@@ -98,7 +98,10 @@ const Settings = () => {
         {/* Data Management */}
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-6">Data Management</h2>
-          <div className="mb-4">
+          <div className="mb-4 flex flex-col gap-4">
+            <button className="w-full p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+              Sign Out
+            </button>
             <button className="w-full p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
               Delete Account
             </button>
