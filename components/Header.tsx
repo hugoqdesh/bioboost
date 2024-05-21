@@ -35,9 +35,12 @@ const Header = () => {
           >
             Blog
           </Link>
-          <button className="bg-blue-500 px-8 py-1 rounded text-white hover:bg-blue-600 transform transition-transform duration-300 hover:scale-105">
+          <Link
+            href="/dashboard/appearance"
+            className="bg-blue-500 px-8 py-1 rounded text-white hover:bg-blue-600 transform transition-transform duration-300 hover:scale-105"
+          >
             Login
-          </button>
+          </Link>
         </div>
         <div className="md:hidden flex items-center">
           <button onClick={handleClick} className="text-2xl mr-4">
@@ -75,12 +78,13 @@ const Header = () => {
           >
             Blog
           </Link>
-          <button
+          <a
+            href="/dashboard/appearance"
             onClick={() => setIsNavOpen(false)}
             className="bg-[#3992f2] px-8 py-2 rounded text-white mt-4 font-semibold"
           >
             Login
-          </button>
+          </a>
         </div>
       </div>
     </header>

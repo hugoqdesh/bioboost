@@ -34,7 +34,8 @@ const MainPage = () => {
             <span className="text-[#FF0000]">YouTube</span>, and more.
           </motion.p>
 
-          <motion.button
+          <motion.a
+            href="/dashboard/appearance"
             className="bg-blue-500 px-8 py-3 rounded-md text-white text-xl font-semibold hover:bg-blue-600"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -43,7 +44,7 @@ const MainPage = () => {
             whileTap={{ scale: 0.9 }}
           >
             Get Started
-          </motion.button>
+          </motion.a>
         </div>
         <motion.div
           className="flex justify-center md:justify-end lg:mr-4 xl:ml-0"
