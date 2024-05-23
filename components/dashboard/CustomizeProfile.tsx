@@ -170,20 +170,6 @@ const CustomizeProfile = () => {
           {avatarPreview}
         </Section>
 
-        {/* Card Border Color Section */}
-        <h1 className="text-center">DO TO IN FUTURE</h1>
-        <Section title="Card Border Color">
-          <TextInput
-            value={borderColor}
-            onChange={(e) => setBorderColor(e.target.value)}
-            placeholder="Enter hex code (e.g., #RRGGBB)"
-          />
-          <div
-            className="mt-2 w-20 h-10 border flex m-auto"
-            style={{ borderColor: borderColor }}
-          ></div>
-        </Section>
-
         {/* Name Section */}
         <Section title="Name">
           <TextInput
@@ -200,64 +186,6 @@ const CustomizeProfile = () => {
             onChange={(e) => setBio(e.target.value)}
             placeholder="Enter your bio"
           />
-        </Section>
-
-        {/* Links Section */}
-        <h1 className="text-center">MAKE IT WORK IN THE FUTURE</h1>
-        <Section title="Links">
-          <TextInput
-            value={newLinkTitle}
-            onChange={(e) => setNewLinkTitle(e.target.value)}
-            placeholder="Enter link title"
-          />
-          <TextInput
-            value={newLinkUrl}
-            onChange={(e) => setNewLinkUrl(e.target.value)}
-            placeholder="Enter link URL"
-          />
-          <TextInput
-            value={newLinkImage || ""}
-            onChange={(e) => setNewLinkImage(e.target.value)}
-            placeholder="Enter link image URL (optional)"
-          />
-          <button
-            onClick={handleAddLink}
-            className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none w-full mt-2"
-          >
-            Add
-          </button>
-          <ul className="mt-2">
-            {links.map((link, index) => (
-              <li
-                key={index}
-                className="flex justify-between items-center mb-2"
-              >
-                <div className="flex items-center">
-                  {link.image && (
-                    <img
-                      src={link.image}
-                      alt="Link Preview"
-                      className="w-8 h-8 mr-2 rounded-full"
-                    />
-                  )}
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500"
-                  >
-                    {link.title}
-                  </a>
-                </div>
-                <button
-                  onClick={() => handleRemoveLink(index)}
-                  className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none"
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
         </Section>
 
         <button
