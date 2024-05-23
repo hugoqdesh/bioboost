@@ -60,7 +60,7 @@ const Settings = () => {
         return;
       }
 
-      const response = await fetch("/api/updateEmail", {
+      const response = await fetch("/api/updateUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,10 +83,6 @@ const Settings = () => {
     }
   };
 
-  const onClick = () => {
-    signOut();
-  };
-
   return (
     <div className="min-h-screen py-10 max-w-md mx-auto">
       <div className="max-w-4xl mx-auto shadow-md rounded-lg p-8">
@@ -104,7 +100,7 @@ const Settings = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="p-1 hover:border-blue-500 text-white rounded w-full h-12 text-start border border-gray-300 bg-[#13151a] placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
+                className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
               />
             </div>
             <button
@@ -128,7 +124,7 @@ const Settings = () => {
               id="font"
               value={font}
               onChange={(e) => setFont(e.target.value)}
-              className="p-1 text-white rounded w-full h-12 text-start border border-gray-500 bg-[#13151a] placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
+              className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
             >
               <option value="sans-serif">Sans Serif</option>
               <option value="serif">Serif</option>
@@ -150,7 +146,7 @@ const Settings = () => {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="p-1 text-white rounded w-full h-12 text-start border border-gray-500 bg-[#13151a] placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
+              className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
             />
           </div>
           <div className="mb-4">
@@ -165,7 +161,7 @@ const Settings = () => {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="p-1 text-white rounded w-full h-16 text-start border border-gray-500 bg-[#13151a] placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
+              className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
             />
           </div>
         </section>

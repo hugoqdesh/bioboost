@@ -3,9 +3,9 @@ import Header from "@/components/Header";
 
 export default function Home() {
   return (
-    <main>
+    <section>
       <Header />
-      <section className="container mx-auto px-4 py-8 mt-24 max-w-4xl mb-10">
+      <div className="container mx-auto px-4 py-8 mt-24 max-w-4xl mb-10">
         <h1 className="text-4xl font-bold mb-6 text-center text-blue-500">
           Term of Service
         </h1>
@@ -77,9 +77,9 @@ export default function Home() {
             webapp (or any portion thereof).
           </p>
         </div>
-      </section>
+      </div>
 
       <Footer />
-    </main>
+    </section>
   );
 }

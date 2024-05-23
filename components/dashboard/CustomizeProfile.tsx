@@ -16,13 +16,8 @@ const CustomizeProfile = () => {
 
   const [background, setBackground] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
-  const [borderColor, setBorderColor] = useState("#000000");
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
-  const [newLinkTitle, setNewLinkTitle] = useState("");
-  const [newLinkUrl, setNewLinkUrl] = useState("");
-  const [newLinkImage, setNewLinkImage] = useState<string | null>(null);
-  const [links, setLinks] = useState<Link[]>([]);
 
   const backgroundPreview = useMemo(
     () =>
@@ -44,26 +39,6 @@ const CustomizeProfile = () => {
     [avatar]
   );
 
-  const handleAddLink = () => {
-    if (newLinkTitle.trim() !== "" && newLinkUrl.trim() !== "") {
-      setLinks([
-        ...links,
-        {
-          title: newLinkTitle.trim(),
-          url: newLinkUrl.trim(),
-          image: newLinkImage,
-        },
-      ]);
-      setNewLinkTitle("");
-      setNewLinkUrl("");
-      setNewLinkImage(null);
-    }
-  };
-
-  const handleRemoveLink = (index: number) => {
-    setLinks(links.filter((_, i) => i !== index));
-  };
-
   const handleSaveChanges = async () => {
     if (!userId) {
       alert("User not authenticated");
@@ -71,68 +46,23 @@ const CustomizeProfile = () => {
     }
 
     try {
-      // Update background
-      const backgroundResponse = await fetch("/api/updateBackgroundImage", {
+      const response = await fetch("/api/updateUser", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, newBackgroundImage: background }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          newName: name,
+          newImage: avatar,
+          newBio: bio,
+          newBackgroundImage: background,
+        }),
       });
 
-      const backgroundData = await backgroundResponse.json();
-      if (!backgroundResponse.ok) {
-        alert("Error updating background image");
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message);
       } else {
-        alert(backgroundData.message);
-      }
-
-      // Update avatar
-      const imageResponse = await fetch("/api/updateImage", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, newImage: avatar }),
-      });
-
-      const imageData = await imageResponse.json();
-      if (imageResponse.ok) {
-        alert(imageData.message);
-      } else {
-        alert("Error updating image");
-      }
-
-      // Update name
-      const nameResponse = await fetch("/api/updateName", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, newName: name }),
-      });
-
-      const nameData = await nameResponse.json();
-      if (nameResponse.ok) {
-        alert(nameData.message);
-      } else {
-        alert("Error updating name");
-      }
-
-      // Update bio
-      const bioResponse = await fetch("/api/updateBio", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, newBio: bio }),
-      });
-
-      const bioData = await bioResponse.json();
-      if (!bioResponse.ok) {
-        alert("Error updating bio");
-      } else {
-        alert(bioData.message);
+        alert(`Error: ${data.message}`);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -145,12 +75,11 @@ const CustomizeProfile = () => {
       <Head>
         <title>Customize Profile</title>
       </Head>
-      <div className="max-w-4xl mx-auto shadow-md rounded-lg p-8">
+      <div className="max-w-4xl mx-auto rounded-lg p-8">
         <h1 className="text-3xl font-bold mb-8 text-center">
           Customize Your Profile
         </h1>
 
-        {/* Background Section */}
         <Section title="Background">
           <TextInput
             value={background}
@@ -160,7 +89,6 @@ const CustomizeProfile = () => {
           {backgroundPreview}
         </Section>
 
-        {/* Avatar Section */}
         <Section title="Avatar">
           <TextInput
             value={avatar}
@@ -170,7 +98,6 @@ const CustomizeProfile = () => {
           {avatarPreview}
         </Section>
 
-        {/* Name Section */}
         <Section title="Name">
           <TextInput
             value={name}
@@ -179,7 +106,6 @@ const CustomizeProfile = () => {
           />
         </Section>
 
-        {/* Bio Section */}
         <Section title="Bio">
           <TextareaInput
             value={bio}
@@ -190,7 +116,7 @@ const CustomizeProfile = () => {
 
         <button
           onClick={handleSaveChanges}
-          className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none flex m-auto"
+          className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none flex m-auto transition duration-200"
         >
           Save Changes
         </button>
@@ -207,7 +133,7 @@ const Section = ({
   children: React.ReactNode;
 }) => (
   <section className="mb-8">
-    <h2 className="text-2xl font-semibold mb-6 text-center">{title}</h2>
+    <h2 className="text-2xl font-semibold text-start mb-1">{title}</h2>
     <div className="mb-4 text-center">{children}</div>
   </section>
 );
@@ -226,7 +152,7 @@ const TextInput = ({
     value={value}
     onChange={onChange}
     placeholder={placeholder}
-    className="p-1 text-white rounded w-full text-center border border-gray-300 bg-[#13151a] placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
+    className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
   />
 );
 
@@ -243,7 +169,8 @@ const TextareaInput = ({
     value={value}
     onChange={onChange}
     placeholder={placeholder}
-    className="p-1 text-white rounded w-full text-center border border-gray-300 bg-[#13151a] placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 mb-2"
+    rows={5}
+    className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 mb-2 resize-none"
   />
 );
 

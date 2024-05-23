@@ -11,16 +11,16 @@ export default async function AdminPage() {
 
   if (user.role !== "admin") {
     return (
-      <main className="mx-auto my-10">
+      <section className="mx-auto my-10">
         <p className="text-center">You do not have access to this page.</p>
-      </main>
+      </section>
     );
   }
 
   return (
-    <main className="mx-auto my-10 space-y-3">
+    <section className="mx-auto my-10 space-y-3">
       <h1 className="text-center text-xl font-bold">Admin Page</h1>
       <p className="text-center">welcome, admin!</p>
-    </main>
+    </section>
   );
 }

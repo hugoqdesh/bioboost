@@ -8,8 +8,8 @@ import { motion } from "framer-motion";
 
 const MainPage = () => {
   return (
-    <main className="container mx-auto">
-      <section className="grid grid-cols-1 md:grid-cols-2 mt-32 md:mt-20 items-center text-center md:text-start">
+    <section className="container mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-32 md:mt-20 items-center text-center md:text-start">
         <div className="md:ml-0 lg:ml-4 xl:ml-0">
           <motion.h1
             className="text-4xl md:text-5xl mb-3 font-semibold leading-tight"
@@ -54,9 +54,9 @@ const MainPage = () => {
         >
           <img src="/biosite.png" alt="Bio Site" />
         </motion.div>
-      </section>
+      </div>
 
-      <section className="text-center mt-48">
+      <div className="text-center mt-48">
         <motion.p
           className="mb-3 text-5xl"
           initial={{ opacity: 0, y: 50 }}
@@ -75,9 +75,9 @@ const MainPage = () => {
           Don&apos;t wait – become one of us today!
         </motion.p>
         <InfiniteMovingCardsDemo />
-      </section>
+      </div>
 
-      <section className="mt-32 mb-16">
+      <div className="mt-32 mb-16">
         <Link href="/" className="flex flex-col items-center ">
           <img src="" alt="" />
           <motion.div
@@ -109,8 +109,8 @@ const MainPage = () => {
             how it works
           </motion.p>
         </Link>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 };
 

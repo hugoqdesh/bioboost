@@ -25,8 +25,10 @@ const Nav = () => {
           <Link
             key={index}
             href={item.href}
-            className={`flex flex-col items-center text-gray-300 hover:text-white transition-colors ${
-              pathname === item.href ? "text-blue-600" : ""
+            className={`flex flex-col items-center transition-colors ${
+              pathname === item.href
+                ? "text-blue-600"
+                : "text-gray-300 hover:text-white"
             }`}
           >
             <item.icon className="mb-1" size={24} />
@@ -43,16 +45,18 @@ const Nav = () => {
       </nav>
 
       {/* Desktop Navigation */}
-      <nav className="hidden lg:flex fixed left-3 top-5 w-60 h-[95vh] bg-[#0b0c0f] rounded-lg shadow-lg flex-col text-white">
-        <div className="mt-5 mb-5">
+      <nav className="hidden lg:flex fixed left-4 top-4 w-72 h-[calc(100vh-2rem)] bg-[#0b0c0f] rounded-xl shadow-lg flex-col text-white p-4">
+        <div className="mt-5">
           <div className="text-center mb-8 text-2xl font-bold">BioBoost</div>
           <div className="flex flex-col space-y-1">
             {navItems.map((item, index) => (
               <Link
                 key={index}
                 href={item.href}
-                className={`flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded transition-colors ${
-                  pathname === item.href ? "bg-blue-600" : ""
+                className={`flex items-center px-4 py-2 text-gray-300 rounded-lg transition-colors ${
+                  pathname === item.href
+                    ? "bg-blue-600 hover:bg-blue-500"
+                    : "hover:bg-white/15"
                 }`}
               >
                 <item.icon />
@@ -61,10 +65,10 @@ const Nav = () => {
             ))}
           </div>
         </div>
-        <div className="mt-auto mb-5">
+        <div className="mt-auto">
           <Link
             href="/"
-            className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded transition-colors"
+            className="flex items-center px-4 py-2 text-gray-300 hover:bg-white/15 rounded-lg transition-colors"
           >
             <GiUpgrade />
             <span className="ml-4">Upgrade</span>
