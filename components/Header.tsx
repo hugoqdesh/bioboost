@@ -16,22 +16,22 @@ const Header = () => {
       <div className="mx-auto max-w-7xl px-6 flex justify-between items-center h-full">
         <div>
           <Link href="/" className="flex items-center">
-            <img src="/link.png" alt="logo" className="w-9 h-9 mr-1" />
+            <img src="/un.png" alt="logo" className="w-20 h-20 mr-[-1.1em]" />
             <p className="text-2xl text-white transition-transform hover:translate-x-1">
-              BioBoost
+              Zylo
             </p>
           </Link>
         </div>
         <div className="hidden md:flex gap-6 items-center text-white/60 md:mr-4 xl:ml-0">
           <Link
             href="/store"
-            className="hover:text-white transition duration-300"
+            className="hover:text-white text-lg transition duration-300"
           >
             Store
           </Link>
           <Link
             href="/blog"
-            className="hover:text-white transition duration-300"
+            className="hover:text-white text-lg transition duration-300"
           >
             Blog
           </Link>

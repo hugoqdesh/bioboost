@@ -7,9 +7,9 @@ const Footer = () => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-1 flex flex-col items-center">
           <Link href="/" className="flex items-center">
-            <img src="/link.png" alt="logo" className="w-9 h-9 mr-2" />
+            <img src="/un.png" alt="logo" className="w-20 h-20 mr-[-1.1em]" />
             <p className="text-2xl text-white transition-transform hover:translate-x-1">
-              BioBoost
+              Zylo
             </p>
           </Link>
           <p className="mt-4 text-center text-white/50">
@@ -17,7 +17,9 @@ const Footer = () => {
           </p>
           <p className="mt-3 text-center text-white/50">
             Made with <span className="text-white">❤️</span> by{" "}
-            <span className="font-semibold text-blue-500">HJ</span>
+            <span className="font-semibold text-blue-500 cursor-pointer">
+              HJ
+            </span>
           </p>
         </div>
         <div className="md:col-span-1">

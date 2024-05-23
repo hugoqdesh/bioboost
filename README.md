@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# bioBoost
 
-## Getting Started
+Zylo is a link in bio service for social media platforms.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Customize your bio with a custom link, image, and background
+- Manage your links with an easy-to-use dashboard
+- Responsive design for mobile and desktop devices
+- Easy to use and set up
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pricing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+We offer two pricing plans:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## How it works
 
-## Learn More
+1. Sign up for an account
+2. Customize your bio with our easy-to-use dashboard
+3. Get your unique link to share with your followers
+4. Manage your links and customize your bio at any time
 
-To learn more about Next.js, take a look at the following resources:
+## Contact us
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you have any questions or need help with something, feel free to contact us at x.

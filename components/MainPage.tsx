@@ -17,17 +17,17 @@ const MainPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Make <span className="text-blue-500">BioBoost</span> your{" "}
+            Make <span className="text-blue-500">Zylo</span> your{" "}
             <span className="text-blue-500">bio</span>
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl mb-5 leading-relaxed"
+            className="text-lg md:text-xl mb-8 leading-relaxed"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Kickstart your bio journey with BioBoost! Join 5,000+ users and
-            spread your bio across platforms like{" "}
+            Kickstart your bio journey with Zylo! Join 3,000+ users and spread
+            your bio across platforms like{" "}
             <span className="text-[#E1306C]">Instagram</span>,{" "}
             <span className="text-[#7289da]">Discord</span>,{" "}
             <span className="text-[#FE2C55]">TikTok</span>,{" "}
@@ -36,7 +36,7 @@ const MainPage = () => {
 
           <motion.a
             href="/dashboard/appearance"
-            className="bg-blue-500 px-8 py-3 rounded-md text-white text-xl font-semibold hover:bg-blue-600"
+            className="bg-blue-500 px-8 py-3 rounded-md text-white text-xl font-semibold hover:bg-blue-600 transition duration-300"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
