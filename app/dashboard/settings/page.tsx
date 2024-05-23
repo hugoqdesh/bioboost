@@ -1,4 +1,4 @@
-import Nav from "@/components/Nav";
+import Nav from "@/components/dashboard/Nav";
 import { auth } from "@/auth";
 import Settings from "@/components/dashboard/Settings";
 import { redirect } from "next/navigation";

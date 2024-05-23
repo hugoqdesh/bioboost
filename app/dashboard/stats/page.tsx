@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import Nav from "@/components/Nav";
+import Nav from "@/components/dashboard/Nav";
 import { redirect } from "next/navigation";
 
 export default async function StatsPage() {

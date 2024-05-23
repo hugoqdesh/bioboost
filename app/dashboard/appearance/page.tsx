@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import Nav from "@/components/Nav";
+import Nav from "@/components/dashboard/Nav";
 import CustomizeProfile from "@/components/dashboard/CustomizeProfile";
 import { redirect } from "next/navigation";
 

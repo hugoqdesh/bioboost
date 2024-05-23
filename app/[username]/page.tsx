@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import ProfileClientComponent from "@/components/ProfileClientComponent";
+import ProfileClientComponent from "@/components/dashboard/ProfileClientComponent";
 import { notFound } from "next/navigation";
 
 const prisma = new PrismaClient();
