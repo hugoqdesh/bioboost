@@ -15,16 +15,16 @@ export default function Home() {
 
         <div className="space-y-6">
           <p>
-            These terms of service (the &quot;Terms&quot;) apply to BioBoost. By
-            using BioBoost, you agree to be bound by these Terms and any
-            additional terms that may be provided by BioBoost. If you do not
-            agree to these Terms, you may not use BioBoost.
+            These terms of service (the &quot;Terms&quot;) apply to Zylo. By
+            using Zylo, you agree to be bound by these Terms and any additional
+            terms that may be provided by Zylo. If you do not agree to these
+            Terms, you may not use Zylo.
           </p>
 
           <p>
-            BioBoost is a link for bio service for social platforms. By using
-            BioBoost, you agree to be bound by these Terms, including provisions
-            related to scamming, third-party purchases, content policies, and
+            Zylo is a link for bio service for social platforms. By using Zylo,
+            you agree to be bound by these Terms, including provisions related
+            to scamming, third-party purchases, content policies, and
             exploitation.
           </p>
         </div>
@@ -32,10 +32,10 @@ export default function Home() {
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-4">Age Restriction</h2>
           <p>
-            BioBoost is not intended for use by individuals under the age of 13.
-            By using BioBoost, you represent and warrant that you are at least
-            13 years of age. If you are under 13 years of age, you are not
-            permitted to use BioBoost.
+            Zylo is not intended for use by individuals under the age of 13. By
+            using Zylo, you represent and warrant that you are at least 13 years
+            of age. If you are under 13 years of age, you are not permitted to
+            use Zylo.
           </p>
         </div>
 
@@ -44,10 +44,10 @@ export default function Home() {
             Intellectual property rights
           </h2>
           <p>
-            BioBoost content and software associated with the webapp is
-            protected by copyright and other intellectual property laws. You may
-            not use any of these materials for any commercial purpose without
-            the express written consent of BioBoost.
+            Zylo content and software associated with the webapp is protected by
+            copyright and other intellectual property laws. You may not use any
+            of these materials for any commercial purpose without the express
+            written consent of Zylo.
           </p>
           <br />
           <p>
@@ -72,9 +72,9 @@ export default function Home() {
           <br />
           <p>
             If you provide any information that is untrue, inaccurate, not
-            current, or incomplete, BioBoost has the right to suspend or
-            terminate your account and refuse any and all current or future use
-            of the webapp (or any portion thereof).
+            current, or incomplete, Zylo has the right to suspend or terminate
+            your account and refuse any and all current or future use of the
+            webapp (or any portion thereof).
           </p>
         </div>
       </section>

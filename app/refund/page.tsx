@@ -16,16 +16,16 @@ export default function Home() {
 
         <div className="space-y-6">
           <p>
-            By completing a purchase on bioBoost and using BioBoost you agree to
-            the terms and conditions stated below.
+            By completing a purchase on Zylo and using Zylo you agree to the
+            terms and conditions stated below.
           </p>
         </div>
 
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-4">TOS Compliance</h2>
           <p>
-            The user will comply with BioBoost Terms of Service, which can be
-            found at our{" "}
+            The user will comply with Zylo Terms of Service, which can be found
+            at our{" "}
             <Link href="/tos" className="text-blue-500">
               {" "}
               Terms of Service notice.
@@ -36,11 +36,11 @@ export default function Home() {
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-4">Recovery Agreement</h2>
           <p>
-            In the event of a blacklist or ban from BioBoost services, the user
+            In the event of a blacklist or ban from Zylo services, the user
             agrees to forfeit any and all claims to funds used to purchase any
-            BioBoost related product or service. The user also agrees to forfeit
-            the services and/or items purchased entirely and permanently in the
-            event of a ban from BioBoost services.
+            Zylo related product or service. The user also agrees to forfeit the
+            services and/or items purchased entirely and permanently in the
+            event of a ban from Zylo services.
           </p>
         </div>
 
@@ -51,8 +51,8 @@ export default function Home() {
           <p>
             The user will acknowledge that any and all purchased products and
             services are nonrefundable. In the event of filing for or initiating
-            a Chargeback on any BioBoost purchase, the user will be permanently
-            banned and blacklisted from any and all BioBoost core and related
+            a Chargeback on any Zylo purchase, the user will be permanently
+            banned and blacklisted from any and all Zylo core and related
             services.
           </p>
         </div>

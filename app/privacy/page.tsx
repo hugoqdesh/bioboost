@@ -15,11 +15,10 @@ export default function Home() {
 
         <div className="space-y-6">
           <p>
-            Thank you for being part of BioBoost (&quot;we,&quot;
-            &quot;us,&quot; or &quot;our&quot;). We are committed to protecting
-            your personal information and your right to privacy. If you have any
-            questions or concerns about this privacy notice you can reach out to
-            us.
+            Thank you for being part of Zylo (&quot;we,&quot; &quot;us,&quot; or
+            &quot;our&quot;). We are committed to protecting your personal
+            information and your right to privacy. If you have any questions or
+            concerns about this privacy notice you can reach out to us.
           </p>
           <p>
             This notice explains how we collect, use, and share
@@ -29,10 +28,10 @@ export default function Home() {
             <li>
               Visit our websites at{" "}
               <a
-                href="https://bioboost.gg"
+                href="https://Zylo.x"
                 className="text-blue-600 hover:underline"
               >
-                https://bioboost.x
+                https://Zylo.x
               </a>{" "}
             </li>
             <li>Engage with us in sales, marketing, or events</li>
