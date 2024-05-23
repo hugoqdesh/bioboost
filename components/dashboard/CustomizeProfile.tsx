@@ -3,12 +3,7 @@
 import Head from "next/head";
 import React, { useState, useMemo } from "react";
 import { useSession } from "next-auth/react";
-
-type Link = {
-  title: string;
-  url: string;
-  image: string | null;
-};
+import { z } from "zod";
 
 const CustomizeProfile = () => {
   const { data: session } = useSession();
@@ -18,6 +13,9 @@ const CustomizeProfile = () => {
   const [avatar, setAvatar] = useState<string>("");
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
+
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const backgroundPreview = useMemo(
     () =>
@@ -39,13 +37,35 @@ const CustomizeProfile = () => {
     [avatar]
   );
 
+  const profileSchema = z.object({
+    name: z
+      .string()
+      .min(3, "Name must be between 3 and 30 characters long")
+      .max(30, "Name must be between 3 and 30 characters long")
+      .nonempty("Name cannot be empty"),
+    bio: z.string().max(200, "Bio must be 200 characters or fewer").optional(),
+    background: z
+      .string()
+      .url("Invalid background URL")
+      .nonempty("Background URL cannot be empty"),
+    avatar: z
+      .string()
+      .url("Invalid avatar URL")
+      .nonempty("Avatar URL cannot be empty"),
+  });
+
   const handleSaveChanges = async () => {
+    setMessage(null);
+    setError(null);
+
     if (!userId) {
-      alert("User not authenticated");
+      setError("User not authenticated");
       return;
     }
 
     try {
+      profileSchema.parse({ name, bio, background, avatar });
+
       const response = await fetch("/api/updateUser", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -60,13 +80,17 @@ const CustomizeProfile = () => {
 
       const data = await response.json();
       if (response.ok) {
-        alert(data.message);
+        setMessage(data.message);
       } else {
-        alert(`Error: ${data.message}`);
+        setError(`Error: ${data.message}`);
       }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An unexpected error occurred");
+    } catch (validationError) {
+      if (validationError instanceof z.ZodError) {
+        setError(validationError.errors[0].message);
+      } else {
+        console.error("Error:", validationError);
+        setError("An unexpected error occurred");
+      }
     }
   };
 
@@ -79,6 +103,11 @@ const CustomizeProfile = () => {
         <h1 className="text-3xl font-bold mb-8 text-center">
           Customize Your Profile
         </h1>
+
+        {message && (
+          <p className="text-green-500 text-center mb-5">{message}</p>
+        )}
+        {error && <p className="text-red-500 text-center mb-5">{error}</p>}
 
         <Section title="Background">
           <TextInput
