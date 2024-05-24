@@ -47,7 +47,9 @@ const Nav = () => {
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex fixed left-4 top-4 w-72 h-[calc(100vh-2rem)] bg-[#0b0c0f] rounded-xl shadow-lg flex-col text-white p-4">
         <div className="mt-5">
-          <div className="text-center mb-8 text-2xl font-bold">Zylo</div>
+          <div className="text-center mb-8 text-2xl font-bold">
+            <a href="/">Zylo</a>
+          </div>
           <div className="flex flex-col space-y-1">
             {navItems.map((item, index) => (
               <Link

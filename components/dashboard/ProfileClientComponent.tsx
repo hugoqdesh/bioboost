@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
+import { FaDiscord } from "react-icons/fa";
 
 type User = {
   name?: string | null;
@@ -22,25 +23,32 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
           margin: 0;
           padding: 0;
           font-family: sans-serif;
-          height: 100%; /* Ensure full height */
+          height: 100%;
+          overflow: hidden; /* Ensure no scrollbars */
         }
 
-        #background-image {
+        .background-container {
           position: fixed;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          object-fit: cover;
+        }
+
+        .background-image {
           opacity: 0.3;
         }
       `}</style>
       {user.backgroundImage && (
-        <img
-          src={user.backgroundImage}
-          id="background-image"
-          alt="Background Image"
-        />
+        <div className="background-container">
+          <Image
+            src={user.backgroundImage}
+            alt="Background Image"
+            layout="fill"
+            objectFit="cover"
+            className="background-image"
+          />
+        </div>
       )}
       <div className="max-w-2xl w-full p-8">
         <Tilt
@@ -52,7 +60,7 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
           <div className="bg-opacity-50 backdrop-filter backdrop-blur-lg p-6">
             <div className="text-center">
               {user.image && (
-                <img
+                <Image
                   src={user.image}
                   alt="Profile Picture"
                   width={100}
@@ -66,6 +74,12 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
                 </h1>
               )}
               {user.bio && <p className="text-gray-300">{user.bio}</p>}
+            </div>
+            <div className="flex justify-center mt-4 items-center">
+              <FaDiscord size={18} className="text-blue-600 mr-1" />
+              <a href="" className="text-blue-600 hover:underline">
+                Join Discord
+              </a>
             </div>
           </div>
         </Tilt>

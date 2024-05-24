@@ -33,6 +33,12 @@ const Header = () => {
             href="/blog"
             className="hover:text-white text-lg transition duration-300"
           >
+            Discord
+          </Link>
+          <Link
+            href="/blog"
+            className="hover:text-white text-lg transition duration-300"
+          >
             Blog
           </Link>
           <Link
@@ -70,6 +76,13 @@ const Header = () => {
             className="text-lg font-semibold"
           >
             Store
+          </Link>
+          <Link
+            href="/blog"
+            onClick={() => setIsNavOpen(false)}
+            className="text-lg font-semibold"
+          >
+            Discord
           </Link>
           <Link
             href="/blog"

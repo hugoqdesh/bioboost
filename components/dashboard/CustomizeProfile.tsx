@@ -2,6 +2,7 @@
 
 import Head from "next/head";
 import React, { useState, useEffect, useMemo } from "react";
+import Image from "next/image"; // Import the Image component
 import { useSession } from "next-auth/react";
 import { z } from "zod";
 
@@ -16,6 +17,7 @@ const CustomizeProfile = () => {
 
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -44,9 +46,11 @@ const CustomizeProfile = () => {
   const backgroundPreview = useMemo(
     () =>
       background && (
-        <img
+        <Image
           src={background}
           alt="Background Preview"
+          width={128} // Set a fixed width
+          height={128} // Set a fixed height
           className="mt-2 w-32 h-auto"
         />
       ),
@@ -56,7 +60,13 @@ const CustomizeProfile = () => {
   const avatarPreview = useMemo(
     () =>
       avatar && (
-        <img src={avatar} alt="Avatar Preview" className="mt-2 w-32 h-auto" />
+        <Image
+          src={avatar}
+          alt="Avatar Preview"
+          width={128} // Set a fixed width
+          height={128} // Set a fixed height
+          className="mt-2 w-32 h-auto rounded"
+        />
       ),
     [avatar]
   );
@@ -81,9 +91,11 @@ const CustomizeProfile = () => {
   const handleSaveChanges = async () => {
     setMessage(null);
     setError(null);
+    setLoading(true);
 
     if (!userId) {
       setError("User not authenticated");
+      setLoading(false);
       return;
     }
 
@@ -97,7 +109,7 @@ const CustomizeProfile = () => {
           userId,
           newName: name,
           newImage: avatar,
-          newBio: bio === "" ? null : bio, // Handle empty bio correctly
+          newBio: bio === "" ? null : bio,
           newBackgroundImage: background,
         }),
       });
@@ -108,12 +120,16 @@ const CustomizeProfile = () => {
       } else {
         setError(`Error: ${data.message}`);
       }
+
+      setLoading(false);
     } catch (validationError) {
       if (validationError instanceof z.ZodError) {
         setError(validationError.errors[0].message);
       } else {
         console.error("Error:", validationError);
         setError("An unexpected error occurred");
+
+        setLoading(false);
       }
     }
   };
@@ -169,9 +185,10 @@ const CustomizeProfile = () => {
 
         <button
           onClick={handleSaveChanges}
+          disabled={loading} // Disable button when loading
           className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none flex m-auto transition duration-200"
         >
-          Save Changes
+          {loading ? "Saving..." : "Save Changes"}{" "}
         </button>
       </div>
     </div>
