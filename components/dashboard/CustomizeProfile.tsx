@@ -1,7 +1,7 @@
 "use client";
 
 import Head from "next/head";
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
 
@@ -11,11 +11,35 @@ const CustomizeProfile = () => {
 
   const [background, setBackground] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
-  const [name, setName] = useState("");
-  const [bio, setBio] = useState("");
+  const [name, setName] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
 
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (userId) {
+        try {
+          const response = await fetch(`/api/getUserProfile?userId=${userId}`);
+          const data = await response.json();
+          if (response.ok) {
+            setBackground(data.user.backgroundImage);
+            setAvatar(data.user.image);
+            setName(data.user.name);
+            setBio(data.user.bio || "");
+          } else {
+            setError(data.message);
+          }
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+          setError("An unexpected error occurred");
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [userId]);
 
   const backgroundPreview = useMemo(
     () =>
@@ -73,7 +97,7 @@ const CustomizeProfile = () => {
           userId,
           newName: name,
           newImage: avatar,
-          newBio: bio,
+          newBio: bio === "" ? null : bio, // Handle empty bio correctly
           newBackgroundImage: background,
         }),
       });

@@ -1,16 +1,38 @@
 "use client";
 
-import Head from "next/head";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 
 const Settings = () => {
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+
   const [email, setEmail] = useState("");
   const [font, setFont] = useState("sans-serif");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (userId) {
+        try {
+          const response = await fetch(`/api/getUserProfile?userId=${userId}`);
+          const data = await response.json();
+          if (response.ok) {
+            setEmail(data.user.email);
+            // Other user data can be set here if needed
+          } else {
+            console.error(data.message);
+          }
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [userId]);
 
   const deleteUser = async () => {
     try {
@@ -21,7 +43,7 @@ const Settings = () => {
         return;
       }
 
-      const response = await fetch("/api/deleteUser", {
+      const response = await fetch("/api/updateSettings", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +74,6 @@ const Settings = () => {
         return;
       }
 
-      // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         console.error("Invalid email format");
@@ -60,16 +81,17 @@ const Settings = () => {
         return;
       }
 
-      const response = await fetch("/api/updateUser", {
-        method: "POST",
+      const response = await fetch("/api/updateSettings", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          currentEmail: session.user?.email,
+          userId: session.user.id,
           newEmail: email,
         }),
       });
+
       if (response.ok) {
         const data = await response.json();
         console.log(data.message);
@@ -88,7 +110,7 @@ const Settings = () => {
       <div className="max-w-4xl mx-auto shadow-md rounded-lg p-8">
         <h1 className="text-3xl font-bold mb-10">User Settings</h1>
 
-        {session && ( // Check if session exists
+        {session && (
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-6">Account Info</h2>
             <div className="mb-4">
