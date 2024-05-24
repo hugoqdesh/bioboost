@@ -136,13 +136,17 @@ const CustomizeProfile = () => {
 
   return (
     <div className="min-h-screen py-10 max-w-md mx-auto">
-      <Head>
-        <title>Customize Profile</title>
-      </Head>
       <div className="max-w-4xl mx-auto rounded-lg p-8">
         <h1 className="text-3xl font-bold mb-8 text-center">
           Customize Your Profile
         </h1>
+
+        <a
+          href=""
+          className="text-blue-500 text-center mb-5 block hover:underline"
+        >
+          View your profile
+        </a>
 
         {message && (
           <p className="text-green-500 text-center mb-5">{message}</p>

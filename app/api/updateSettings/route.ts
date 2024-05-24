@@ -16,24 +16,56 @@ export async function DELETE(req: Request) {
       user: deletedUser,
     });
   } catch (error) {
-    return NextResponse.json({ message: "Internal Server Error" });
+    console.error("Error deleting user:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
 export async function PUT(req: Request) {
-  const { userId, newEmail } = await req.json();
+  const { userId, newEmail, newUsername } = await req.json();
+
+  const updateData: { [key: string]: any } = {};
+
+  if (newEmail !== undefined) updateData.email = newEmail;
+  if (newUsername !== undefined) {
+    // Check if the new username already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { username: newUsername },
+    });
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "Username already taken" },
+        { status: 400 }
+      );
+    }
+    updateData.username = newUsername;
+  }
+
+  if (Object.keys(updateData).length === 0) {
+    return NextResponse.json(
+      { message: "No valid fields to update" },
+      { status: 400 }
+    );
+  }
 
   try {
     const updatedUser = await prisma.user.update({
+      data: updateData,
       where: { id: userId },
-      data: { email: newEmail },
     });
 
     return NextResponse.json({
-      message: "Email updated successfully",
+      message: "User updated successfully",
       user: updatedUser,
     });
   } catch (error) {
-    return NextResponse.json({ message: "Internal Server Error" });
+    console.error("Error updating user:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

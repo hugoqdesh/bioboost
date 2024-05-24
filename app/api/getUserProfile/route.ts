@@ -20,6 +20,7 @@ export async function GET(req: Request) {
       select: {
         email: true,
         name: true,
+        username: true,
         image: true,
         bio: true,
         backgroundImage: true,
