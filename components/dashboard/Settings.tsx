@@ -14,6 +14,7 @@ const Settings = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,7 +33,11 @@ const Settings = () => {
         } catch (error) {
           console.error("Error fetching user profile:", error);
           setError("An unexpected error occurred");
+        } finally {
+          setProfileLoading(false);
         }
+      } else {
+        setProfileLoading(false);
       }
     };
 
@@ -182,7 +187,7 @@ const Settings = () => {
         )}
         {error && <p className="text-red-500 text-center mb-5">{error}</p>}
 
-        {session && (
+        {session && !profileLoading && (
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-6">Account Info</h2>
             <div className="mb-4">
@@ -226,6 +231,12 @@ const Settings = () => {
               Update Username
             </button>
           </section>
+        )}
+
+        {profileLoading && (
+          <div className="text-center py-10">
+            <p className="text-gray-500">Loading user profile...</p>
+          </div>
         )}
 
         {/* Bio Customization */}

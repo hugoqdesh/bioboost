@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
+import { ClipLoader } from "react-spinners";
 
 const CustomizeProfile = () => {
   const { data: session } = useSession();
@@ -17,7 +18,8 @@ const CustomizeProfile = () => {
 
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -37,6 +39,8 @@ const CustomizeProfile = () => {
         } catch (error) {
           console.error("Error fetching user profile:", error);
           setError("An unexpected error occurred");
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -92,11 +96,11 @@ const CustomizeProfile = () => {
   const handleSaveChanges = async () => {
     setMessage(null);
     setError(null);
-    setLoading(true);
+    setSaving(true);
 
     if (!userId) {
       setError("User not authenticated");
-      setLoading(false);
+      setSaving(false);
       return;
     }
 
@@ -129,80 +133,89 @@ const CustomizeProfile = () => {
         setError("An unexpected error occurred");
       }
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   };
 
   return (
     <div className="min-h-screen py-10 max-w-md mx-auto">
-      <div className="max-w-4xl mx-auto rounded-lg p-8">
-        <h1 className="text-3xl font-bold mb-8 text-center">
-          Customize Your Profile
-        </h1>
+      {loading ? (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50 opacity-100 transition-opacity duration-500 ease-in-out animate-fadeIn">
+          <div className="text-center">
+            <ClipLoader size={50} color={"#fff"} loading={loading} />
+            <p className="text-white mt-4">Loading your profile...</p>
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-4xl mx-auto rounded-lg p-8">
+          <h1 className="text-3xl font-bold mb-8 text-center">
+            Customize Your Profile
+          </h1>
 
-        {username ? (
-          <a
-            href={`/${username}`}
-            className="text-blue-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
+          {username ? (
+            <a
+              href={`/${username}`}
+              className="text-blue-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
+            >
+              View your profile
+            </a>
+          ) : (
+            <a
+              href="/dashboard/settings"
+              className="text-red-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
+            >
+              No username
+            </a>
+          )}
+
+          {message && (
+            <p className="text-green-500 text-center mb-5">{message}</p>
+          )}
+          {error && <p className="text-red-500 text-center mb-5">{error}</p>}
+
+          <Section title="Background">
+            <TextInput
+              value={background}
+              onChange={(e) => setBackground(e.target.value)}
+              placeholder="Enter background image URL"
+            />
+            {backgroundPreview}
+          </Section>
+
+          <Section title="Avatar">
+            <TextInput
+              value={avatar}
+              onChange={(e) => setAvatar(e.target.value)}
+              placeholder="Enter avatar image URL"
+            />
+            {avatarPreview}
+          </Section>
+
+          <Section title="Name">
+            <TextInput
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
+            />
+          </Section>
+
+          <Section title="Bio">
+            <TextareaInput
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              placeholder="Enter your bio"
+            />
+          </Section>
+
+          <button
+            onClick={handleSaveChanges}
+            disabled={saving}
+            className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none flex m-auto transition duration-200"
           >
-            View your profile
-          </a>
-        ) : (
-          <a
-            href="/dashboard/settings"
-            className="text-red-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
-          >
-            No username
-          </a>
-        )}
-
-        {message && (
-          <p className="text-green-500 text-center mb-5">{message}</p>
-        )}
-        {error && <p className="text-red-500 text-center mb-5">{error}</p>}
-
-        <Section title="Background">
-          <TextInput
-            value={background}
-            onChange={(e) => setBackground(e.target.value)}
-            placeholder="Enter background image URL"
-          />
-          {backgroundPreview}
-        </Section>
-
-        <Section title="Avatar">
-          <TextInput
-            value={avatar}
-            onChange={(e) => setAvatar(e.target.value)}
-            placeholder="Enter avatar image URL"
-          />
-          {avatarPreview}
-        </Section>
-
-        <Section title="Name">
-          <TextInput
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your name"
-          />
-        </Section>
-
-        <Section title="Bio">
-          <TextareaInput
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            placeholder="Enter your bio"
-          />
-        </Section>
-
-        <button
-          onClick={handleSaveChanges}
-          disabled={loading}
-          className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none flex m-auto transition duration-200"
-        >
-          {loading ? "Saving..." : "Save Changes"}{" "}
-        </button>
-      </div>
+            {saving ? "Saving..." : "Save Changes"}{" "}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -46,7 +46,7 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
             alt="Background Image"
             layout="fill"
             objectFit="cover"
-            className="background-image"
+            className="background-image pointer-events-none select-none"
           />
         </div>
       )}
@@ -65,7 +65,7 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
                   alt="Profile Picture"
                   width={100}
                   height={100}
-                  className="rounded-full mx-auto"
+                  className="rounded-full mx-auto pointer-events-none select-none"
                 />
               )}
               {user.name && (

@@ -52,7 +52,11 @@ const MainPage = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <img src="/biosite.png" alt="Bio Site" />
+          <img
+            src="/biosite.png"
+            alt="Bio Site"
+            className="pointer-events-none select-none"
+          />
         </motion.div>
       </div>
 
