@@ -259,7 +259,9 @@ const Settings = () => {
             </select>
           </div>
 
-          <div className="mb-4">
+          {/* SEO */}
+          <section className="mb-4 mt-8">
+            <h2 className="text-2xl font-semibold mb-6">SEO</h2>
             <label className="block text-sm font-medium mb-2" htmlFor="title">
               Title
             </label>
@@ -271,7 +273,7 @@ const Settings = () => {
               onChange={(e) => setTitle(e.target.value)}
               className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
             />
-          </div>
+          </section>
 
           <div className="mb-4">
             <label

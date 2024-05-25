@@ -8,7 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Zylo | Link in Bio",
+  title: "Zylo | Link in Bio Service",
   description:
     "Zylo is a new unique link in bio service for social media platforms.",
 };

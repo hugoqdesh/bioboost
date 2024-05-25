@@ -21,7 +21,6 @@ model User {
   bio           String?
   image         String?
   email         String          @unique
-  password      String?
   emailVerified DateTime?
   role          String?
   accounts      Account[]
