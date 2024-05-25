@@ -1,8 +1,7 @@
 "use client";
 
-import Head from "next/head";
 import React, { useState, useEffect, useMemo } from "react";
-import Image from "next/image"; // Import the Image component
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
 
@@ -14,6 +13,7 @@ const CustomizeProfile = () => {
   const [avatar, setAvatar] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
 
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +30,7 @@ const CustomizeProfile = () => {
             setAvatar(data.user.image);
             setName(data.user.name);
             setBio(data.user.bio || "");
+            setUsername(data.user.username);
           } else {
             setError(data.message);
           }
@@ -49,8 +50,8 @@ const CustomizeProfile = () => {
         <Image
           src={background}
           alt="Background Preview"
-          width={128} // Set a fixed width
-          height={128} // Set a fixed height
+          width={128}
+          height={128}
           className="mt-2 w-32 h-auto"
         />
       ),
@@ -63,8 +64,8 @@ const CustomizeProfile = () => {
         <Image
           src={avatar}
           alt="Avatar Preview"
-          width={128} // Set a fixed width
-          height={128} // Set a fixed height
+          width={128}
+          height={128}
           className="mt-2 w-32 h-auto rounded"
         />
       ),
@@ -74,8 +75,8 @@ const CustomizeProfile = () => {
   const profileSchema = z.object({
     name: z
       .string()
-      .min(3, "Name must be between 3 and 30 characters long")
-      .max(30, "Name must be between 3 and 30 characters long")
+      .min(3, "Name must be between 3 and 15 characters long")
+      .max(15, "Name must be between 3 and 15 characters long")
       .nonempty("Name cannot be empty"),
     bio: z.string().max(200, "Bio must be 200 characters or fewer").optional(),
     background: z
@@ -120,17 +121,15 @@ const CustomizeProfile = () => {
       } else {
         setError(`Error: ${data.message}`);
       }
-
-      setLoading(false);
     } catch (validationError) {
       if (validationError instanceof z.ZodError) {
         setError(validationError.errors[0].message);
       } else {
         console.error("Error:", validationError);
         setError("An unexpected error occurred");
-
-        setLoading(false);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -141,12 +140,21 @@ const CustomizeProfile = () => {
           Customize Your Profile
         </h1>
 
-        <a
-          href=""
-          className="text-blue-500 text-center mb-5 block hover:underline"
-        >
-          View your profile
-        </a>
+        {username ? (
+          <a
+            href={`/${username}`}
+            className="text-blue-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
+          >
+            View your profile
+          </a>
+        ) : (
+          <a
+            href="/dashboard/settings"
+            className="text-red-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
+          >
+            No username
+          </a>
+        )}
 
         {message && (
           <p className="text-green-500 text-center mb-5">{message}</p>
@@ -189,7 +197,7 @@ const CustomizeProfile = () => {
 
         <button
           onClick={handleSaveChanges}
-          disabled={loading} // Disable button when loading
+          disabled={loading}
           className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none flex m-auto transition duration-200"
         >
           {loading ? "Saving..." : "Save Changes"}{" "}

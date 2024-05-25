@@ -14,7 +14,8 @@ const Settings = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({ email: "", username: "" });
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -26,10 +27,11 @@ const Settings = () => {
             setEmail(data.user.email);
             setUsername(data.user.username);
           } else {
-            console.error(data.message);
+            setError(data.message);
           }
         } catch (error) {
           console.error("Error fetching user profile:", error);
+          setError("An unexpected error occurred");
         }
       }
     };
@@ -40,9 +42,11 @@ const Settings = () => {
   const deleteUser = async () => {
     try {
       setLoading(true);
+      setMessage(null);
+      setError(null);
 
       if (!session) {
-        console.error("User is not authenticated");
+        setError("User is not authenticated");
         return;
       }
 
@@ -59,13 +63,13 @@ const Settings = () => {
       if (response.ok) {
         await signOut({ callbackUrl: "/" });
       } else {
-        console.error("Failed to delete account");
-        alert("Failed to delete account");
-        setLoading(false);
+        const data = await response.json();
+        setError("Failed to delete account: " + data.message);
       }
     } catch (error) {
       console.error("Error deleting account:", error);
-      alert("Error deleting account");
+      setError("Error deleting account");
+    } finally {
       setLoading(false);
     }
   };
@@ -79,18 +83,17 @@ const Settings = () => {
 
   const updateEmail = async () => {
     try {
+      setMessage(null);
+      setError(null);
+
       if (!session) {
-        console.error("User is not authenticated");
+        setError("User is not authenticated");
         return;
       }
 
       const result = emailSchema.safeParse(email);
       if (!result.success) {
-        setErrors((prev) => ({
-          ...prev,
-          email: result.error.errors[0].message,
-        }));
-        alert(result.error.errors[0].message);
+        setError(result.error.errors[0].message);
         return;
       }
 
@@ -105,35 +108,36 @@ const Settings = () => {
         }),
       });
 
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
-        console.log(data.message);
-        alert(data.message);
-        setErrors((prev) => ({ ...prev, email: "" }));
+        setMessage(data.message);
+      } else if (
+        response.status === 400 &&
+        data.message === "Email already taken"
+      ) {
+        setError("Email is already taken");
       } else {
-        const data = await response.json();
-        console.error("Failed to update email:", data.message);
-        alert("Failed to update email");
+        setError("Failed to update email: " + data.message);
       }
     } catch (error) {
       console.error("Error updating email:", error);
+      setError("Error updating email");
     }
   };
 
   const updateUsername = async () => {
     try {
+      setMessage(null);
+      setError(null);
+
       if (!session) {
-        console.error("User is not authenticated");
+        setError("User is not authenticated");
         return;
       }
 
       const result = usernameSchema.safeParse(username);
       if (!result.success) {
-        setErrors((prev) => ({
-          ...prev,
-          username: result.error.errors[0].message,
-        }));
-        alert(result.error.errors[0].message);
+        setError(result.error.errors[0].message);
         return;
       }
 
@@ -150,26 +154,21 @@ const Settings = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message);
-        alert(data.message);
-        setErrors((prev) => ({ ...prev, username: "" }));
+        setMessage(data.message);
       } else {
         const data = await response.json();
         if (
           response.status === 400 &&
           data.message === "Username already taken"
         ) {
-          setErrors((prev) => ({
-            ...prev,
-            username: "Username is already taken",
-          }));
+          setError("Username is already taken");
         } else {
-          console.error("Failed to update username:", data.message);
-          alert("Failed to update username");
+          setError("Failed to update username: " + data.message);
         }
       }
     } catch (error) {
       console.error("Error updating username:", error);
+      setError("Error updating username");
     }
   };
 
@@ -177,6 +176,11 @@ const Settings = () => {
     <div className="min-h-screen py-10 max-w-md mx-auto">
       <div className="max-w-4xl mx-auto rounded-lg p-8">
         <h1 className="text-3xl font-bold mb-10">User Settings</h1>
+
+        {message && (
+          <p className="text-green-500 text-center mb-5">{message}</p>
+        )}
+        {error && <p className="text-red-500 text-center mb-5">{error}</p>}
 
         {session && (
           <section className="mb-8">
@@ -192,7 +196,6 @@ const Settings = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
               />
-              {errors.email && <p className="text-red-500">{errors.email}</p>}
             </div>
             <button
               onClick={updateEmail}
@@ -215,9 +218,6 @@ const Settings = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
               />
-              {errors.username && (
-                <p className="text-red-500">{errors.username}</p>
-              )}
             </div>
             <button
               onClick={updateUsername}
@@ -247,11 +247,7 @@ const Settings = () => {
               <option value="monospace">Monospace</option>
             </select>
           </div>
-        </section>
 
-        {/* SEO Settings */}
-        <section className="mb-8 text-gray-500">
-          <h2 className="text-2xl font-semibold mb-6">SEO Settings</h2>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2" htmlFor="title">
               Title
@@ -265,6 +261,7 @@ const Settings = () => {
               className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
             />
           </div>
+
           <div className="mb-4">
             <label
               className="block text-sm font-medium mb-2"
@@ -277,31 +274,27 @@ const Settings = () => {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              rows={4}
               className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
-            ></textarea>
+            />
           </div>
         </section>
 
         {/* Danger Zone */}
-        <section className="mb-8">
+        <section>
           <h2 className="text-2xl font-semibold mb-6">Danger Zone</h2>
-          <div className="mb-4 flex flex-col gap-4">
-            <button
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="w-full p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-            >
-              Sign Out
-            </button>
-            <button
-              onClick={deleteUser}
-              disabled={loading}
-              className={`w-full p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-            >
-              {loading ? "Deleting..." : "Delete Account"}
-            </button>
-          </div>
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="w-full p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors mb-4"
+          >
+            Sign Out
+          </button>
+          <button
+            onClick={deleteUser}
+            className="w-full p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+          >
+            {loading ? "Deleting..." : "Delete Account"}
+          </button>
         </section>
       </div>
     </div>

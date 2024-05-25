@@ -1,4 +1,4 @@
-# bioBoost
+# Zylo
 
 Zylo is a link in bio service for social media platforms.
 

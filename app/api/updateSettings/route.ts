@@ -29,9 +29,22 @@ export async function PUT(req: Request) {
 
   const updateData: { [key: string]: any } = {};
 
-  if (newEmail !== undefined) updateData.email = newEmail;
+  if (newEmail !== undefined) {
+    // Check if email is already taken
+    const existingEmail = await prisma.user.findUnique({
+      where: { email: newEmail },
+    });
+    if (existingEmail) {
+      return NextResponse.json(
+        { message: "Email already taken" },
+        { status: 400 }
+      );
+    }
+    updateData.email = newEmail;
+  }
+
   if (newUsername !== undefined) {
-    // Check if the new username already exists
+    // Check if username is already taken
     const existingUser = await prisma.user.findUnique({
       where: { username: newUsername },
     });
