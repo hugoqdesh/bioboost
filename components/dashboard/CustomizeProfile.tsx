@@ -111,7 +111,6 @@ const CustomizeProfile = () => {
     }
 
     try {
-      // Validate URL fields
       for (const key of Object.keys(links)) {
         if (links[key] === "") {
           delete links[key];

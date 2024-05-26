@@ -83,8 +83,7 @@ const Settings = () => {
   const usernameSchema = z
     .string()
     .min(3, "Username must be at least 3 characters long")
-    .max(20, "Username cannot exceed 20 characters")
-    .regex(/^[a-zA-Z]+$/, "Username cannot contain numbers");
+    .max(20, "Username cannot exceed 20 characters");
 
   const updateEmail = async () => {
     try {
