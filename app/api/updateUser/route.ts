@@ -23,6 +23,10 @@ export async function PUT(req: Request) {
     updateData.backgroundImage = newBackgroundImage;
   if (newBorderColor !== undefined) updateData.borderColor = newBorderColor;
   if (newLinks !== undefined) updateData.links = newLinks;
+  if (newBackgroundImage !== undefined) {
+    updateData.backgroundImage =
+      newBackgroundImage !== null ? newBackgroundImage : null;
+  }
 
   if (Object.keys(updateData).length === 0) {
     return NextResponse.json(

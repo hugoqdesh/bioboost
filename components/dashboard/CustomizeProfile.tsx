@@ -52,32 +52,36 @@ const CustomizeProfile = () => {
     fetchUserProfile();
   }, [userId]);
 
-  const backgroundPreview = useMemo(
-    () =>
-      background && (
-        <Image
-          src={background}
-          alt="Background Preview"
-          width={128}
-          height={128}
-          className="mt-2 w-32 h-auto"
-        />
-      ),
-    [background]
-  );
-
   const avatarPreview = useMemo(
     () =>
       avatar && (
-        <Image
-          src={avatar}
-          alt="Avatar Preview"
-          width={128}
-          height={128}
-          className="mt-2 w-32 h-auto rounded"
-        />
+        <div className="mb-4">
+          <Image
+            src={avatar}
+            alt="Avatar Preview"
+            width={128}
+            height={128}
+            className="w-32 h-auto rounded"
+          />
+        </div>
       ),
     [avatar]
+  );
+
+  const backgroundPreview = useMemo(
+    () =>
+      background && (
+        <div className="mt-4">
+          <Image
+            src={background}
+            alt="Background Preview"
+            width={128}
+            height={128}
+            className="w-32 h-auto"
+          />
+        </div>
+      ),
+    [background]
   );
 
   const profileSchema = z.object({
@@ -87,10 +91,7 @@ const CustomizeProfile = () => {
       .max(15, "Name must be between 3 and 15 characters long")
       .nonempty("Name cannot be empty"),
     bio: z.string().max(200, "Bio must be 200 characters or fewer").optional(),
-    background: z
-      .string()
-      .url("Invalid background URL")
-      .nonempty("Background URL cannot be empty"),
+    background: z.string().url("Invalid background URL").nullable().default(""),
     avatar: z
       .string()
       .url("Invalid avatar URL")
@@ -219,8 +220,9 @@ const CustomizeProfile = () => {
             <TextInput
               value={background}
               onChange={(e: any) => setBackground(e.target.value)}
-              placeholder="Enter your background URL"
+              placeholder="Enter your background URL (optional)"
             />
+
             {backgroundPreview}
           </Section>
 
