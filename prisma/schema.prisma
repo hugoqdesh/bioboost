@@ -17,7 +17,7 @@ model User {
   name          String?
   username      String?         @unique
   backgroundImage String?
-  backgroundColor String?       @default("#131313")
+  borderColor   String?         @default("#ffffff")
   bio           String?
   image         String?
   email         String          @unique
@@ -25,6 +25,7 @@ model User {
   role          String?
   accounts      Account[]
   sessions      Session[]
+  links         Json?
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

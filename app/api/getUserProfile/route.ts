@@ -24,6 +24,8 @@ export async function GET(req: Request) {
         image: true,
         bio: true,
         backgroundImage: true,
+        borderColor: true,
+        links: true,
       },
     });
 

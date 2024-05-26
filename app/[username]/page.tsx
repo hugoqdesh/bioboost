@@ -20,6 +20,8 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       backgroundImage: true,
       bio: true,
       image: true,
+      borderColor: true,
+      links: true,
     },
   });
 
@@ -27,5 +29,10 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     notFound();
   }
 
-  return <ProfileClientComponent user={user} />;
+  const parsedUser = {
+    ...user,
+    links: user.links ? (user.links as { [key: string]: string }) : null,
+  };
+
+  return <ProfileClientComponent user={parsedUser} />;
 }

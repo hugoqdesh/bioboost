@@ -15,6 +15,8 @@ const CustomizeProfile = () => {
   const [name, setName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [username, setUsername] = useState<string>("");
+  const [borderColor, setBorderColor] = useState<string>("");
+  const [links, setLinks] = useState<{ [key: string]: string }>({});
 
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -33,6 +35,8 @@ const CustomizeProfile = () => {
             setName(data.user.name);
             setBio(data.user.bio || "");
             setUsername(data.user.username);
+            setBorderColor(data.user.borderColor);
+            setLinks(data.user.links || {});
           } else {
             setError(data.message);
           }
@@ -91,6 +95,8 @@ const CustomizeProfile = () => {
       .string()
       .url("Invalid avatar URL")
       .nonempty("Avatar URL cannot be empty"),
+    borderColor: z.string().optional(),
+    links: z.record(z.string().url("Invalid URL")).optional(),
   });
 
   const handleSaveChanges = async () => {
@@ -105,7 +111,21 @@ const CustomizeProfile = () => {
     }
 
     try {
-      profileSchema.parse({ name, bio, background, avatar });
+      // Validate URL fields
+      for (const key of Object.keys(links)) {
+        if (links[key] === "") {
+          delete links[key];
+        }
+      }
+
+      profileSchema.parse({
+        name,
+        bio,
+        background,
+        avatar,
+        borderColor,
+        links,
+      });
 
       const response = await fetch("/api/updateUser", {
         method: "PUT",
@@ -116,6 +136,8 @@ const CustomizeProfile = () => {
           newImage: avatar,
           newBio: bio === "" ? null : bio,
           newBackgroundImage: background,
+          newBorderColor: borderColor,
+          newLinks: links,
         }),
       });
 
@@ -135,6 +157,13 @@ const CustomizeProfile = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleLinkChange = (key: string, value: string) => {
+    setLinks((prevLinks) => ({
+      ...prevLinks,
+      [key]: value,
+    }));
   };
 
   return (
@@ -164,53 +193,99 @@ const CustomizeProfile = () => {
               href="/dashboard/settings"
               className="text-red-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
             >
-              No username
+              Set a username to view your profile
             </a>
           )}
 
-          {message && (
-            <p className="text-green-500 text-center mb-5">{message}</p>
-          )}
-          {error && <p className="text-red-500 text-center mb-5">{error}</p>}
-
-          <Section title="Background">
-            <TextInput
-              value={background}
-              onChange={(e) => setBackground(e.target.value)}
-              placeholder="Enter background image URL"
-            />
-            {backgroundPreview}
-          </Section>
-
-          <Section title="Avatar">
-            <TextInput
-              value={avatar}
-              onChange={(e) => setAvatar(e.target.value)}
-              placeholder="Enter avatar image URL"
-            />
-            {avatarPreview}
-          </Section>
-
-          <Section title="Name">
+          <Section title="Profile Details">
             <TextInput
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e: any) => setName(e.target.value)}
               placeholder="Enter your name"
             />
-          </Section>
-
-          <Section title="Bio">
             <TextareaInput
               value={bio}
-              onChange={(e) => setBio(e.target.value)}
+              onChange={(e: any) => setBio(e.target.value)}
               placeholder="Enter your bio"
             />
           </Section>
 
+          <Section title="Profile Images">
+            <TextInput
+              value={avatar}
+              onChange={(e: any) => setAvatar(e.target.value)}
+              placeholder="Enter your avatar URL"
+            />
+            {avatarPreview}
+            <TextInput
+              value={background}
+              onChange={(e: any) => setBackground(e.target.value)}
+              placeholder="Enter your background URL"
+            />
+            {backgroundPreview}
+          </Section>
+
+          <Section title="Profile Border Color">
+            <TextInput
+              value={borderColor}
+              onChange={(e: any) => setBorderColor(e.target.value)}
+              placeholder="Enter your border color (hex code)"
+            />
+          </Section>
+
+          <Section title="Profile Links">
+            <TextInput
+              value={links.website || ""}
+              onChange={(e: any) => handleLinkChange("website", e.target.value)}
+              placeholder="Enter your website URL"
+            />
+            <TextInput
+              value={links.github || ""}
+              onChange={(e: any) => handleLinkChange("github", e.target.value)}
+              placeholder="Enter your GitHub URL"
+            />
+            <TextInput
+              value={links.twitter || ""}
+              onChange={(e: any) => handleLinkChange("twitter", e.target.value)}
+              placeholder="Enter your Twitter URL"
+            />
+            <TextInput
+              value={links.instagram || ""}
+              onChange={(e: any) =>
+                handleLinkChange("instagram", e.target.value)
+              }
+              placeholder="Enter your Instagram URL"
+            />
+            <TextInput
+              value={links.youtube || ""}
+              onChange={(e: any) => handleLinkChange("youtube", e.target.value)}
+              placeholder="Enter your YouTube URL"
+            />
+            <TextInput
+              value={links.tiktok || ""}
+              onChange={(e: any) => handleLinkChange("tiktok", e.target.value)}
+              placeholder="Enter your TikTok URL"
+            />
+            <TextInput
+              value={links.spotify || ""}
+              onChange={(e: any) => handleLinkChange("spotify", e.target.value)}
+              placeholder="Enter your Spotify URL"
+            />
+          </Section>
+
+          {error && (
+            <div className="bg-red-500 text-white p-2 mb-4 rounded text-center">
+              {error}
+            </div>
+          )}
+          {message && (
+            <div className="bg-green-500 text-white p-2 mb-4 rounded text-center">
+              {message}
+            </div>
+          )}
           <button
             onClick={handleSaveChanges}
-            disabled={saving}
-            className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none flex m-auto transition duration-200"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none flex m-auto transition duration-200"
           >
             {saving ? "Saving..." : "Save Changes"}{" "}
           </button>
@@ -220,28 +295,14 @@ const CustomizeProfile = () => {
   );
 };
 
-const Section = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) => (
+const Section = ({ title, children }: any) => (
   <section className="mb-8">
     <h2 className="text-2xl font-semibold text-start mb-1">{title}</h2>
     <div className="mb-4 text-center">{children}</div>
   </section>
 );
 
-const TextInput = ({
-  value,
-  onChange,
-  placeholder,
-}: {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
-}) => (
+const TextInput = ({ value, onChange, placeholder }: any) => (
   <input
     type="text"
     value={value}
@@ -251,15 +312,7 @@ const TextInput = ({
   />
 );
 
-const TextareaInput = ({
-  value,
-  onChange,
-  placeholder,
-}: {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  placeholder: string;
-}) => (
+const TextareaInput = ({ value, onChange, placeholder }: any) => (
   <textarea
     value={value}
     onChange={onChange}

@@ -4,8 +4,15 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function PUT(req: Request) {
-  const { userId, newName, newImage, newBio, newBackgroundImage } =
-    await req.json();
+  const {
+    userId,
+    newName,
+    newImage,
+    newBio,
+    newBackgroundImage,
+    newBorderColor,
+    newLinks,
+  } = await req.json();
 
   const updateData: { [key: string]: any } = {};
 
@@ -14,6 +21,8 @@ export async function PUT(req: Request) {
   if (newBio !== undefined) updateData.bio = newBio;
   if (newBackgroundImage !== undefined)
     updateData.backgroundImage = newBackgroundImage;
+  if (newBorderColor !== undefined) updateData.borderColor = newBorderColor;
+  if (newLinks !== undefined) updateData.links = newLinks;
 
   if (Object.keys(updateData).length === 0) {
     return NextResponse.json(

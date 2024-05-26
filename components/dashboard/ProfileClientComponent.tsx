@@ -2,7 +2,16 @@
 
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
-import { FaDiscord } from "react-icons/fa";
+import {
+  FaDiscord,
+  FaGithub,
+  FaTwitter,
+  FaInstagram,
+  FaYoutube,
+  FaTiktok,
+  FaSpotify,
+  FaGlobe,
+} from "react-icons/fa";
 import { useState, useEffect } from "react";
 
 type User = {
@@ -10,10 +19,23 @@ type User = {
   backgroundImage?: string | null;
   bio?: string | null;
   image?: string | null;
+  borderColor?: string | null;
+  links?: { [key: string]: string } | null;
 };
 
 type ProfileClientComponentProps = {
   user: User;
+};
+
+const linkIcons: Record<string, JSX.Element> = {
+  website: <FaGlobe size={20} />,
+  github: <FaGithub size={20} />,
+  twitter: <FaTwitter size={20} />,
+  instagram: <FaInstagram size={20} />,
+  youtube: <FaYoutube size={20} />,
+  tiktok: <FaTiktok size={20} />,
+  spotify: <FaSpotify size={20} />,
+  discord: <FaDiscord size={20} />,
 };
 
 const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
@@ -21,7 +43,6 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
 
   useEffect(() => {
     const loadImages = async () => {
-      // loading time of 2 seconds
       setTimeout(() => {
         setIsLoaded(true);
       }, 2000);
@@ -54,7 +75,8 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
               tiltMaxAngleX={10}
               tiltMaxAngleY={10}
               scale={1.05}
-              className="rounded-lg shadow-lg overflow-hidden border border-gray-300"
+              className="rounded-lg shadow-lg overflow-hidden"
+              style={{ border: `2px solid ${user.borderColor ?? "#ffffff"}` }}
             >
               <div className="bg-opacity-50 backdrop-filter backdrop-blur-lg p-6">
                 <div className="text-center">
@@ -72,7 +94,25 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
                       {user.name}
                     </h1>
                   )}
+
                   {user.bio && <p className="text-gray-300">{user.bio}</p>}
+                </div>
+                <div className="mb-4 flex flex-wrap justify-center">
+                  {user.links &&
+                    Object.entries(user.links).map(([key, url]) => (
+                      <div key={key} className="flex justify-center mt-2">
+                        <a
+                          href={url}
+                          className="flex text-white hover:underline mr-2 p-2 duration-300 hover:brightness-50 rounded-full bg-opacity-50 backdrop-blur-md translate-y-0 opacity-100"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {linkIcons[key] || (
+                            <FaGlobe size={24} className="mr-2 self-center" />
+                          )}
+                        </a>
+                      </div>
+                    ))}
                 </div>
                 <div className="flex justify-center mt-4 items-center">
                   <FaDiscord size={18} className="text-blue-600 mr-1" />
