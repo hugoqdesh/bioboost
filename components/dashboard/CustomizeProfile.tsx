@@ -6,7 +6,45 @@ import { useSession } from "next-auth/react";
 import { z } from "zod";
 import { ClipLoader } from "react-spinners";
 
-const CustomizeProfile = () => {
+const TextInput: React.FC<{
+  value: string;
+  onChange: any;
+  placeholder: string;
+}> = ({ value, onChange, placeholder }) => (
+  <input
+    type="text"
+    value={value}
+    onChange={onChange}
+    placeholder={placeholder}
+    className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
+  />
+);
+
+const TextareaInput: React.FC<{
+  value: string;
+  onChange: any;
+  placeholder: string;
+}> = ({ value, onChange, placeholder }) => (
+  <textarea
+    value={value}
+    onChange={onChange}
+    placeholder={placeholder}
+    rows={5}
+    className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 mb-2 resize-none"
+  />
+);
+
+const Section: React.FC<{ title: string; children: React.ReactNode }> = ({
+  title,
+  children,
+}) => (
+  <section className="mb-8">
+    <h2 className="text-2xl font-semibold text-start mb-1">{title}</h2>
+    <div>{children}</div>
+  </section>
+);
+
+const CustomizeProfile: React.FC = () => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
@@ -167,16 +205,16 @@ const CustomizeProfile = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 max-w-md mx-auto">
+    <div className="min-h-screen py-10 max-w-4xl mx-auto px-4 md:px-0">
       {loading ? (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50 opacity-100 transition-opacity duration-500 ease-in-out animate-fadeIn">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
           <div className="text-center">
             <ClipLoader size={50} color={"#fff"} loading={loading} />
             <p className="text-white mt-4">Loading your profile...</p>
           </div>
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto rounded-lg p-8">
+        <div className="rounded-lg p-8">
           <h1 className="text-3xl font-bold mb-8 text-center">
             Customize Your Profile
           </h1>
@@ -184,94 +222,86 @@ const CustomizeProfile = () => {
           {username ? (
             <a
               href={`/${username}`}
-              className="text-blue-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
+              className="text-blue-500 text-center mb-5 block hover:underline"
             >
               View your profile
             </a>
           ) : (
             <a
               href="/dashboard/settings"
-              className="text-red-500 text-center mb-5 flex w-[200px] mx-auto justify-center hover:underline"
+              className="text-red-500 text-center mb-5 block hover:underline"
             >
               Set a username to view your profile
             </a>
           )}
 
-          <Section title="Profile Details">
-            <TextInput
-              value={name}
-              onChange={(e: any) => setName(e.target.value)}
-              placeholder="Enter your name"
-            />
-            <TextareaInput
-              value={bio}
-              onChange={(e: any) => setBio(e.target.value)}
-              placeholder="Enter your bio"
-            />
-          </Section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Section title="Profile Details">
+              <TextInput
+                value={name}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
+                placeholder="Enter your name"
+              />
+              <TextareaInput
+                value={bio}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                  setBio(e.target.value)
+                }
+                placeholder="Enter your bio"
+              />
+            </Section>
 
-          <Section title="Profile Images">
-            <TextInput
-              value={avatar}
-              onChange={(e: any) => setAvatar(e.target.value)}
-              placeholder="Enter your avatar URL"
-            />
-            {avatarPreview}
-            <TextInput
-              value={background}
-              onChange={(e: any) => setBackground(e.target.value)}
-              placeholder="Enter your background URL (optional)"
-            />
-
-            {backgroundPreview}
-          </Section>
+            <Section title="Profile Images">
+              <TextInput
+                value={avatar}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAvatar(e.target.value)
+                }
+                placeholder="Enter your avatar URL"
+              />
+              {avatarPreview}
+              <TextInput
+                value={background}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setBackground(e.target.value)
+                }
+                placeholder="Enter your background URL (optional)"
+              />
+              {backgroundPreview}
+            </Section>
+          </div>
 
           <Section title="Profile Border Color">
             <TextInput
               value={borderColor}
-              onChange={(e: any) => setBorderColor(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setBorderColor(e.target.value)
+              }
               placeholder="Enter your border color (hex code)"
             />
           </Section>
 
           <Section title="Profile Links">
-            <TextInput
-              value={links.website || ""}
-              onChange={(e: any) => handleLinkChange("website", e.target.value)}
-              placeholder="Enter your website URL"
-            />
-            <TextInput
-              value={links.github || ""}
-              onChange={(e: any) => handleLinkChange("github", e.target.value)}
-              placeholder="Enter your GitHub URL"
-            />
-            <TextInput
-              value={links.twitter || ""}
-              onChange={(e: any) => handleLinkChange("twitter", e.target.value)}
-              placeholder="Enter your Twitter URL"
-            />
-            <TextInput
-              value={links.instagram || ""}
-              onChange={(e: any) =>
-                handleLinkChange("instagram", e.target.value)
-              }
-              placeholder="Enter your Instagram URL"
-            />
-            <TextInput
-              value={links.youtube || ""}
-              onChange={(e: any) => handleLinkChange("youtube", e.target.value)}
-              placeholder="Enter your YouTube URL"
-            />
-            <TextInput
-              value={links.tiktok || ""}
-              onChange={(e: any) => handleLinkChange("tiktok", e.target.value)}
-              placeholder="Enter your TikTok URL"
-            />
-            <TextInput
-              value={links.spotify || ""}
-              onChange={(e: any) => handleLinkChange("spotify", e.target.value)}
-              placeholder="Enter your Spotify URL"
-            />
+            {[
+              "website",
+              "github",
+              "twitter",
+              "instagram",
+              "youtube",
+              "tiktok",
+              "spotify",
+            ].map((platform) => (
+              <TextInput
+                key={platform}
+                value={links[platform] || ""}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleLinkChange(platform, e.target.value)
+                }
+                placeholder={`Enter your ${platform} URL`}
+              />
+            ))}
           </Section>
 
           {error && (
@@ -286,41 +316,14 @@ const CustomizeProfile = () => {
           )}
           <button
             onClick={handleSaveChanges}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none flex m-auto transition duration-200"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none block m-auto transition duration-200"
           >
-            {saving ? "Saving..." : "Save Changes"}{" "}
+            {saving ? "Saving..." : "Save Changes"}
           </button>
         </div>
       )}
     </div>
   );
 };
-
-const Section = ({ title, children }: any) => (
-  <section className="mb-8">
-    <h2 className="text-2xl font-semibold text-start mb-1">{title}</h2>
-    <div className="mb-4 text-center">{children}</div>
-  </section>
-);
-
-const TextInput = ({ value, onChange, placeholder }: any) => (
-  <input
-    type="text"
-    value={value}
-    onChange={onChange}
-    placeholder={placeholder}
-    className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
-  />
-);
-
-const TextareaInput = ({ value, onChange, placeholder }: any) => (
-  <textarea
-    value={value}
-    onChange={onChange}
-    placeholder={placeholder}
-    rows={5}
-    className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 mb-2 resize-none"
-  />
-);
 
 export default CustomizeProfile;
