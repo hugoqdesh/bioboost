@@ -130,7 +130,8 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 max-w-md mx-auto">
+    // min-h-screen py-10 lg:max-w-2xl 2xl:max-w-4xl xl:ml-[23em] lg:ml-[17em] 2xl:mx-auto px-4 md:px-0
+    <div className="min-h-screen py-10 max-w-md xl:ml-[28em] lg:ml-[22em] 2xl:mx-auto">
       <div className="max-w-4xl mx-auto rounded-lg p-8">
         <h1 className="text-3xl font-bold mb-10">User Settings</h1>
 

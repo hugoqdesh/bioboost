@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-1 flex flex-col items-center">
           <Link href="/" className="flex items-center">
-            <img src="/un.png" alt="logo" className="w-20 h-20 mr-[-1.1em]" />
+            {/* <img src="/un.png" alt="logo" className="w-20 h-20 mr-[-1.1em]" /> */}
             <p className="text-2xl text-white transition-transform hover:translate-x-1">
               Zylo
             </p>

@@ -210,7 +210,7 @@ const CustomizeProfile: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 lg:max-w-xl max-w-3xl mx-auto px-4 md:px-0">
+    <div className="min-h-screen py-10 lg:max-w-2xl 2xl:max-w-4xl xl:ml-[23em] lg:ml-[17em] 2xl:mx-auto px-4 md:px-0">
       {loading ? (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
           <div className="text-center">

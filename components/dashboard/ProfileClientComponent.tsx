@@ -117,20 +117,14 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
                 </div>
                 {user.spotifyTrack && (
                   <div className="mt-4 text-center">
-                    <h3 className="text-white mb-2">Favorite Track:</h3>
                     <iframe
                       src={`https://open.spotify.com/embed/track/${user.spotifyTrack
                         .split("/")
                         .pop()}`}
-                      width="240"
+                      width="full"
                       height="80"
-                      frameBorder="0"
                       allow="encrypted-media"
                       className="mx-auto"
-                      style={{
-                        borderRadius: "12px",
-                        overflow: "hidden",
-                      }}
                     />
                   </div>
                 )}

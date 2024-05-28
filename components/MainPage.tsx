@@ -53,7 +53,7 @@ const MainPage = () => {
           transition={{ duration: 0.8 }}
         >
           <img
-            src="/biosite.png"
+            src="/shots.png"
             alt="Bio Site"
             className="pointer-events-none select-none"
           />
