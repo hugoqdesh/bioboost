@@ -5,19 +5,51 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
 import { ClipLoader } from "react-spinners";
+import {
+  FaGithub,
+  FaTwitter,
+  FaInstagram,
+  FaYoutube,
+  FaTiktok,
+  FaSpotify,
+  FaGlobe,
+} from "react-icons/fa";
+
+type SocialPlatforms =
+  | "website"
+  | "github"
+  | "twitter"
+  | "instagram"
+  | "youtube"
+  | "tiktok"
+  | "spotify";
+
+const socialIcons: Record<SocialPlatforms, React.ReactNode> = {
+  website: <FaGlobe />,
+  github: <FaGithub />,
+  twitter: <FaTwitter />,
+  instagram: <FaInstagram />,
+  youtube: <FaYoutube />,
+  tiktok: <FaTiktok />,
+  spotify: <FaSpotify />,
+};
 
 const TextInput: React.FC<{
   value: string;
   onChange: any;
   placeholder: string;
-}> = ({ value, onChange, placeholder }) => (
-  <input
-    type="text"
-    value={value}
-    onChange={onChange}
-    placeholder={placeholder}
-    className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
-  />
+  icon?: React.ReactNode;
+}> = ({ value, onChange, placeholder, icon }) => (
+  <div className="flex items-center mb-2">
+    {icon && <div className="mr-2 text-xl text-white">{icon}</div>}
+    <input
+      type="text"
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
+    />
+  </div>
 );
 
 const TextareaInput: React.FC<{
@@ -138,7 +170,12 @@ const CustomizeProfile: React.FC = () => {
       .nonempty("Avatar URL cannot be empty"),
     borderColor: z.string().optional(),
     links: z.record(z.string().url("Invalid URL")).optional(),
-    spotifyTrack: z.string().url("Invalid Spotify URL").optional(),
+    spotifyTrack: z
+      .string()
+      .optional()
+      .refine((val) => val === "" || z.string().url().safeParse(val).success, {
+        message: "Invalid Spotify URL",
+      }),
   });
 
   const handleSaveChanges = async () => {
@@ -180,7 +217,7 @@ const CustomizeProfile: React.FC = () => {
           newBackgroundImage: background,
           newBorderColor: borderColor,
           newLinks: links,
-          newSpotifyTrack: spotifyTrack,
+          newSpotifyTrack: spotifyTrack === "" ? null : spotifyTrack,
         }),
       });
 
@@ -260,6 +297,9 @@ const CustomizeProfile: React.FC = () => {
             </Section>
 
             <Section title="Profile Images">
+              <p className="text-sm mb-2 text-white/70">
+                (use high quality images)
+              </p>
               <TextInput
                 value={avatar}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -290,24 +330,27 @@ const CustomizeProfile: React.FC = () => {
           </Section>
 
           <Section title="Profile Links">
-            {[
-              "website",
-              "github",
-              "twitter",
-              "instagram",
-              "youtube",
-              "tiktok",
-              "spotify",
-            ].map((platform) => (
-              <TextInput
-                key={platform}
-                value={links[platform] || ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleLinkChange(platform, e.target.value)
-                }
-                placeholder={`Enter your ${platform} URL`}
-              />
-            ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                "website",
+                "github",
+                "twitter",
+                "instagram",
+                "youtube",
+                "tiktok",
+                "spotify",
+              ].map((platform) => (
+                <TextInput
+                  key={platform}
+                  value={links[platform] || ""}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleLinkChange(platform, e.target.value)
+                  }
+                  placeholder={`Enter your ${platform} URL`}
+                  icon={socialIcons[platform as SocialPlatforms]}
+                />
+              ))}
+            </div>
           </Section>
 
           <Section title="Spotify Track">
@@ -316,7 +359,7 @@ const CustomizeProfile: React.FC = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setSpotifyTrack(e.target.value)
               }
-              placeholder="Enter your Spotify track URL"
+              placeholder="Enter your Spotify song URL"
             />
           </Section>
 
@@ -332,7 +375,7 @@ const CustomizeProfile: React.FC = () => {
           )}
           <button
             onClick={handleSaveChanges}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none block m-auto transition duration-200"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none block m-auto transition duration-200 mb-2"
           >
             {saving ? "Saving..." : "Save Changes"}
           </button>

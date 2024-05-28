@@ -1,4 +1,3 @@
-// app/cancel/page.tsx
 const CancelPage = () => {
   return (
     <div className="flex items-center justify-center h-screen">
