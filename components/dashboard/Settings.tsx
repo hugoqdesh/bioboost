@@ -8,7 +8,6 @@ const Settings = () => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
-  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [font, setFont] = useState("sans-serif");
   const [title, setTitle] = useState("");
@@ -25,7 +24,6 @@ const Settings = () => {
           const response = await fetch(`/api/getUserProfile?userId=${userId}`);
           const data = await response.json();
           if (response.ok) {
-            setEmail(data.user.email);
             setUsername(data.user.username);
           } else {
             setError(data.message);
@@ -79,55 +77,10 @@ const Settings = () => {
     }
   };
 
-  const emailSchema = z.string().email("Invalid email format");
   const usernameSchema = z
     .string()
     .min(3, "Username must be at least 3 characters long")
     .max(20, "Username cannot exceed 20 characters");
-
-  const updateEmail = async () => {
-    try {
-      setMessage(null);
-      setError(null);
-
-      if (!session) {
-        setError("User is not authenticated");
-        return;
-      }
-
-      const result = emailSchema.safeParse(email);
-      if (!result.success) {
-        setError(result.error.errors[0].message);
-        return;
-      }
-
-      const response = await fetch("/api/updateSettings", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: session.user.id,
-          newEmail: email,
-        }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        setMessage(data.message);
-      } else if (
-        response.status === 400 &&
-        data.message === "Email already taken"
-      ) {
-        setError("Email is already taken");
-      } else {
-        setError("Failed to update email: " + data.message);
-      }
-    } catch (error) {
-      console.error("Error updating email:", error);
-      setError("Error updating email");
-    }
-  };
 
   const updateUsername = async () => {
     try {
@@ -189,24 +142,6 @@ const Settings = () => {
         {session && !profileLoading && (
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-6">Account Info</h2>
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" htmlFor="email">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
-              />
-            </div>
-            <button
-              onClick={updateEmail}
-              className="w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Update Email
-            </button>
 
             <div className="mb-4 mt-8">
               <label

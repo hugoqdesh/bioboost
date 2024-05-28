@@ -1,3 +1,4 @@
+// api/updateUser
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
@@ -12,6 +13,7 @@ export async function PUT(req: Request) {
     newBackgroundImage,
     newBorderColor,
     newLinks,
+    newSpotifyTrack,
   } = await req.json();
 
   const updateData: { [key: string]: any } = {};
@@ -23,10 +25,7 @@ export async function PUT(req: Request) {
     updateData.backgroundImage = newBackgroundImage;
   if (newBorderColor !== undefined) updateData.borderColor = newBorderColor;
   if (newLinks !== undefined) updateData.links = newLinks;
-  if (newBackgroundImage !== undefined) {
-    updateData.backgroundImage =
-      newBackgroundImage !== null ? newBackgroundImage : null;
-  }
+  if (newSpotifyTrack !== undefined) updateData.spotifyTrack = newSpotifyTrack;
 
   if (Object.keys(updateData).length === 0) {
     return NextResponse.json(

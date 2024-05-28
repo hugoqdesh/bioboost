@@ -55,6 +55,7 @@ const CustomizeProfile: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [borderColor, setBorderColor] = useState<string>("");
   const [links, setLinks] = useState<{ [key: string]: string }>({});
+  const [spotifyTrack, setSpotifyTrack] = useState<string>("");
 
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -75,6 +76,7 @@ const CustomizeProfile: React.FC = () => {
             setUsername(data.user.username);
             setBorderColor(data.user.borderColor);
             setLinks(data.user.links || {});
+            setSpotifyTrack(data.user.spotifyTrack || "");
           } else {
             setError(data.message);
           }
@@ -136,6 +138,7 @@ const CustomizeProfile: React.FC = () => {
       .nonempty("Avatar URL cannot be empty"),
     borderColor: z.string().optional(),
     links: z.record(z.string().url("Invalid URL")).optional(),
+    spotifyTrack: z.string().url("Invalid Spotify URL").optional(),
   });
 
   const handleSaveChanges = async () => {
@@ -163,6 +166,7 @@ const CustomizeProfile: React.FC = () => {
         avatar,
         borderColor,
         links,
+        spotifyTrack,
       });
 
       const response = await fetch("/api/updateUser", {
@@ -176,6 +180,7 @@ const CustomizeProfile: React.FC = () => {
           newBackgroundImage: background,
           newBorderColor: borderColor,
           newLinks: links,
+          newSpotifyTrack: spotifyTrack,
         }),
       });
 
@@ -205,7 +210,7 @@ const CustomizeProfile: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 max-w-4xl mx-auto px-4 md:px-0">
+    <div className="min-h-screen py-10 lg:max-w-xl max-w-3xl mx-auto px-4 md:px-0">
       {loading ? (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
           <div className="text-center">
@@ -302,6 +307,16 @@ const CustomizeProfile: React.FC = () => {
                 placeholder={`Enter your ${platform} URL`}
               />
             ))}
+          </Section>
+
+          <Section title="Spotify Track">
+            <TextInput
+              value={spotifyTrack}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSpotifyTrack(e.target.value)
+              }
+              placeholder="Enter your Spotify track URL"
+            />
           </Section>
 
           {error && (

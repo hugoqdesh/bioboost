@@ -1,3 +1,4 @@
+// api/getUserProfile
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
@@ -26,6 +27,7 @@ export async function GET(req: Request) {
         backgroundImage: true,
         borderColor: true,
         links: true,
+        spotifyTrack: true,
       },
     });
 

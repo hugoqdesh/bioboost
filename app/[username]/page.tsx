@@ -22,6 +22,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       image: true,
       borderColor: true,
       links: true,
+      spotifyTrack: true,
     },
   });
 

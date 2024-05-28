@@ -21,6 +21,7 @@ type User = {
   image?: string | null;
   borderColor?: string | null;
   links?: { [key: string]: string } | null;
+  spotifyTrack?: string | null;
 };
 
 type ProfileClientComponentProps = {
@@ -114,12 +115,25 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
                       </div>
                     ))}
                 </div>
-                {/* <div className="flex justify-center mt-4 items-center">
-                  <FaDiscord size={18} className="text-blue-600 mr-1" />
-                  <a href="" className="text-blue-600 hover:underline">
-                    Join Discord
-                  </a>
-                </div> */}
+                {user.spotifyTrack && (
+                  <div className="mt-4 text-center">
+                    <h3 className="text-white mb-2">Favorite Track:</h3>
+                    <iframe
+                      src={`https://open.spotify.com/embed/track/${user.spotifyTrack
+                        .split("/")
+                        .pop()}`}
+                      width="240"
+                      height="80"
+                      frameBorder="0"
+                      allow="encrypted-media"
+                      className="mx-auto"
+                      style={{
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </Tilt>
           </div>
