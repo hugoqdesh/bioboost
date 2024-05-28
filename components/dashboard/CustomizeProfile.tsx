@@ -228,6 +228,7 @@ const CustomizeProfile: React.FC = () => {
             <a
               href={`/${username}`}
               className="text-blue-500 text-center mb-5 block hover:underline"
+              target="_blank"
             >
               View your profile
             </a>
