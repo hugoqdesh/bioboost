@@ -21,8 +21,12 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ id: session.id });
-  } catch (err) {
-    console.error(err);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error("An unknown error occurred");
+    }
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
