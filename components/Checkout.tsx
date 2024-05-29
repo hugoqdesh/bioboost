@@ -1,38 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import Nav from "./dashboard/Nav";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
-
 const PricingPlan = () => {
-  const [loading, setLoading] = useState(false);
-
-  const handleClick = async () => {
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/checkout_sessions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const { id } = await res.json();
-
-      const stripe = await stripePromise;
-      await stripe?.redirectToCheckout({ sessionId: id });
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <>
       <Nav />
@@ -69,18 +39,16 @@ const PricingPlan = () => {
                 Get access to all premium features for just 0.99$ per month. No
                 hidden fees or extra charges.
               </p>
-              <button
-                onClick={handleClick}
+              <a
+                href="#" //invite to discord
                 rel="noreferrer"
-                className={`relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-white before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max ${
-                  loading ? "cursor-not-allowed" : ""
-                }`}
-                disabled={loading}
+                className={`relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-white before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max
+                `}
               >
                 <span className="relative text-sm font-semibold text-black">
-                  {loading ? "Loading..." : "Get Started"}
+                  Get Started
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
