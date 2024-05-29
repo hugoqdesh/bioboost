@@ -130,8 +130,7 @@ const Settings = () => {
   };
 
   return (
-    // min-h-screen py-10 lg:max-w-2xl 2xl:max-w-4xl xl:ml-[23em] lg:ml-[17em] 2xl:mx-auto px-4 md:px-0
-    <div className="min-h-screen py-10 max-w-md xl:ml-[28em] lg:ml-[22em] 2xl:mx-auto">
+    <div className="min-h-screen py-10 max-w-md xl:ml-[28em] lg:ml-[22em] 2xl:mx-auto mx-auto">
       <div className="max-w-4xl mx-auto rounded-lg p-8">
         <h1 className="text-3xl font-bold mb-10">User Settings</h1>
 
@@ -176,26 +175,36 @@ const Settings = () => {
 
         {/* Bio Customization */}
         <section className="mb-8 text-gray-500">
-          <h2 className="text-2xl font-semibold mb-6">Bio Customization</h2>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="font">
-              Font
-            </label>
-            <select
-              disabled
-              id="font"
-              value={font}
-              onChange={(e) => setFont(e.target.value)}
-              className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
+          <section className="mb-8 text-gray-500 relative">
+            {" "}
+            <h2 className="text-2xl font-semibold mb-6">Customization</h2>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2" htmlFor="font">
+                Font
+              </label>
+              <select
+                disabled
+                id="font"
+                value={font}
+                onChange={(e) => setFont(e.target.value)}
+                className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
+              >
+                <option value="sans-serif">Sans Serif</option>
+                <option value="serif">Serif</option>
+                <option value="monospace">Monospace</option>
+              </select>
+            </div>
+            <a
+              href="/upgrade"
+              className="cursor-pointer absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded-lg text-xs font-medium hover:bg-blue-600 transition duration-200"
             >
-              <option value="sans-serif">Sans Serif</option>
-              <option value="serif">Serif</option>
-              <option value="monospace">Monospace</option>
-            </select>
-          </div>
+              Upgrade to PRO
+            </a>
+          </section>
 
           {/* SEO */}
-          <section className="mb-4 mt-8">
+          <section className="mb-4 mt-8 relative">
+            {" "}
             <h2 className="text-2xl font-semibold mb-6">SEO</h2>
             <label className="block text-sm font-medium mb-2" htmlFor="title">
               Title
@@ -208,6 +217,13 @@ const Settings = () => {
               onChange={(e) => setTitle(e.target.value)}
               className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
             />
+            {/* Add upgrade button */}
+            <a
+              href="/upgrade"
+              className="cursor-pointer absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded-lg text-xs font-medium hover:bg-blue-600 transition duration-200"
+            >
+              Upgrade to PRO
+            </a>
           </section>
 
           <div className="mb-4">
@@ -239,7 +255,7 @@ const Settings = () => {
           </button>
           <button
             onClick={deleteUser}
-            className="w-full p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            className="w-full p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors mb-4"
           >
             {loading ? "Deleting..." : "Delete Account"}
           </button>

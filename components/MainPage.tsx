@@ -35,7 +35,7 @@ const MainPage = () => {
           </motion.p>
 
           <motion.a
-            href="/dashboard/appearance"
+            href="/dashboard/settings"
             className="bg-blue-500 px-8 py-3 rounded-md text-white text-xl font-semibold hover:bg-blue-600 transition duration-300"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}

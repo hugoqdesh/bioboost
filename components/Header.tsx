@@ -42,7 +42,7 @@ const Header = () => {
             Blog
           </Link>
           <Link
-            href="/dashboard/appearance"
+            href="/dashboard/settings"
             className="bg-blue-500 px-8 py-1 rounded text-white hover:bg-blue-600 transform transition-transform duration-300 hover:scale-105"
           >
             Login
@@ -92,7 +92,7 @@ const Header = () => {
             Blog
           </Link>
           <a
-            href="/dashboard/appearance"
+            href="/dashboard/settings"
             onClick={() => setIsNavOpen(false)}
             className="bg-[#3992f2] px-8 py-2 rounded text-white mt-4 font-semibold"
           >

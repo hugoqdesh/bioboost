@@ -86,7 +86,7 @@ const CustomizeProfile: React.FC = () => {
   const [bio, setBio] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [borderColor, setBorderColor] = useState<string>("");
-  const [links, setLinks] = useState<{ [key: string]: string }>({});
+  const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
   const [spotifyTrack, setSpotifyTrack] = useState<string>("");
 
   const [message, setMessage] = useState<string | null>(null);
@@ -101,13 +101,30 @@ const CustomizeProfile: React.FC = () => {
           const response = await fetch(`/api/getUserProfile?userId=${userId}`);
           const data = await response.json();
           if (response.ok) {
-            setBackground(data.user.backgroundImage);
+            const links = data.user.links || {};
+            const baseUrls: Record<SocialPlatforms, string> = {
+              website: "",
+              github: "https://github.com/",
+              twitter: "https://twitter.com/",
+              instagram: "https://www.instagram.com/",
+              youtube: "https://www.youtube.com/",
+              tiktok: "https://www.tiktok.com/@",
+              spotify: "https://open.spotify.com/user/",
+            };
+
+            const parsedUsernames = Object.keys(links).reduce((acc, key) => {
+              const baseUrl = baseUrls[key as SocialPlatforms];
+              acc[key] = links[key].replace(baseUrl, "");
+              return acc;
+            }, {} as { [key: string]: string });
+
+            setBackground(data.user.backgroundImage || "");
             setAvatar(data.user.image);
             setName(data.user.name);
             setBio(data.user.bio || "");
             setUsername(data.user.username);
             setBorderColor(data.user.borderColor);
-            setLinks(data.user.links || {});
+            setUsernames(parsedUsernames);
             setSpotifyTrack(data.user.spotifyTrack || "");
           } else {
             setError(data.message);
@@ -157,25 +174,18 @@ const CustomizeProfile: React.FC = () => {
   );
 
   const profileSchema = z.object({
-    name: z
+    name: z.string().nonempty("Name is required"),
+    bio: z.string().nullable(),
+    background: z.string().url().optional().or(z.literal("")),
+    avatar: z.string().nonempty("Avatar is required").url().optional(),
+    borderColor: z
       .string()
-      .min(3, "Name must be between 3 and 15 characters long")
-      .max(15, "Name must be between 3 and 15 characters long")
-      .nonempty("Name cannot be empty"),
-    bio: z.string().max(200, "Bio must be 200 characters or fewer").optional(),
-    background: z.string().url("Invalid background URL").nullable().default(""),
-    avatar: z
-      .string()
-      .url("Invalid avatar URL")
-      .nonempty("Avatar URL cannot be empty"),
-    borderColor: z.string().optional(),
-    links: z.record(z.string().url("Invalid URL")).optional(),
-    spotifyTrack: z
-      .string()
-      .optional()
-      .refine((val) => val === "" || z.string().url().safeParse(val).success, {
-        message: "Invalid Spotify URL",
-      }),
+      .nonempty("Border color is required")
+      .min(4)
+      .max(7)
+      .optional(),
+    links: z.record(z.string().url()).optional(),
+    spotifyTrack: z.string().url().nullable().or(z.literal("")),
   });
 
   const handleSaveChanges = async () => {
@@ -190,11 +200,22 @@ const CustomizeProfile: React.FC = () => {
     }
 
     try {
-      for (const key of Object.keys(links)) {
-        if (links[key] === "") {
-          delete links[key];
+      const baseUrls: Record<SocialPlatforms, string> = {
+        website: "",
+        github: "https://github.com/",
+        twitter: "https://twitter.com/",
+        instagram: "https://www.instagram.com/",
+        youtube: "https://www.youtube.com/",
+        tiktok: "https://www.tiktok.com/@",
+        spotify: "https://open.spotify.com/user/",
+      };
+
+      const fullLinks = Object.keys(usernames).reduce((acc, key) => {
+        if (usernames[key]) {
+          acc[key] = `${baseUrls[key as SocialPlatforms]}${usernames[key]}`;
         }
-      }
+        return acc;
+      }, {} as { [key: string]: string });
 
       profileSchema.parse({
         name,
@@ -202,7 +223,7 @@ const CustomizeProfile: React.FC = () => {
         background,
         avatar,
         borderColor,
-        links,
+        links: fullLinks,
         spotifyTrack,
       });
 
@@ -214,9 +235,9 @@ const CustomizeProfile: React.FC = () => {
           newName: name,
           newImage: avatar,
           newBio: bio === "" ? null : bio,
-          newBackgroundImage: background,
+          newBackgroundImage: background === "" ? null : background,
           newBorderColor: borderColor,
-          newLinks: links,
+          newLinks: fullLinks,
           newSpotifyTrack: spotifyTrack === "" ? null : spotifyTrack,
         }),
       });
@@ -240,8 +261,8 @@ const CustomizeProfile: React.FC = () => {
   };
 
   const handleLinkChange = (key: string, value: string) => {
-    setLinks((prevLinks) => ({
-      ...prevLinks,
+    setUsernames((prevUsernames) => ({
+      ...prevUsernames,
       [key]: value,
     }));
   };
@@ -285,14 +306,14 @@ const CustomizeProfile: React.FC = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setName(e.target.value)
                 }
-                placeholder="Enter your name"
+                placeholder="Ryan Gosling"
               />
               <TextareaInput
                 value={bio}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                   setBio(e.target.value)
                 }
-                placeholder="Enter your bio"
+                placeholder="Type your bio"
               />
             </Section>
 
@@ -325,7 +346,7 @@ const CustomizeProfile: React.FC = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setBorderColor(e.target.value)
               }
-              placeholder="Enter your border color (hex code)"
+              placeholder="Border color (hex code)"
             />
           </Section>
 
@@ -342,11 +363,15 @@ const CustomizeProfile: React.FC = () => {
               ].map((platform) => (
                 <TextInput
                   key={platform}
-                  value={links[platform] || ""}
+                  value={usernames[platform] || ""}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleLinkChange(platform, e.target.value)
                   }
-                  placeholder={`Enter your ${platform} URL`}
+                  placeholder={
+                    platform === "website"
+                      ? "website URL"
+                      : `${platform} username`
+                  }
                   icon={socialIcons[platform as SocialPlatforms]}
                 />
               ))}
@@ -359,26 +384,30 @@ const CustomizeProfile: React.FC = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setSpotifyTrack(e.target.value)
               }
-              placeholder="Enter your Spotify song URL"
+              placeholder="Spotify song URL"
             />
           </Section>
 
           {error && (
-            <div className="bg-red-500 text-white p-2 mb-4 rounded text-center">
+            <div className="bg-red-500 text-center font-bold text-white p-2 rounded mb-4">
               {error}
             </div>
           )}
           {message && (
-            <div className="bg-green-500 text-white p-2 mb-4 rounded text-center">
+            <div className="bg-green-500 text-center font-bold text-white p-2 rounded mb-4">
               {message}
             </div>
           )}
-          <button
-            onClick={handleSaveChanges}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none block m-auto transition duration-200 mb-2"
-          >
-            {saving ? "Saving..." : "Save Changes"}
-          </button>
+
+          <div className="text-center mt-8 mb-4">
+            <button
+              onClick={handleSaveChanges}
+              className="px-6 py-3 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition duration-200"
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Save Changes"}
+            </button>
+          </div>
         </div>
       )}
     </div>

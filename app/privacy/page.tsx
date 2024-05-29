@@ -27,11 +27,8 @@ export default function Home() {
           <ul className="list-disc list-inside space-y-2">
             <li>
               Visit our websites at{" "}
-              <a
-                href="https://Zylo.x"
-                className="text-blue-600 hover:underline"
-              >
-                https://Zylo.x
+              <a href="x" className="text-blue-600 hover:underline">
+                x
               </a>{" "}
             </li>
             <li>Engage with us in sales, marketing, or events</li>

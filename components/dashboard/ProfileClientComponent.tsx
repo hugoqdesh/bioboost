@@ -124,7 +124,7 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
                       width="full"
                       height="80"
                       allow="encrypted-media"
-                      className="mx-auto"
+                      className="mx-auto w-[250px] md:w-[55%]"
                     />
                   </div>
                 )}
