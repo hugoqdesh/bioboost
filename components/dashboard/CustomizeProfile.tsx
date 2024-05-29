@@ -175,7 +175,7 @@ const CustomizeProfile: React.FC = () => {
 
   const profileSchema = z.object({
     name: z.string().nonempty("Name is required"),
-    bio: z.string().nullable(),
+    bio: z.string().max(150).nullable(),
     background: z.string().url().optional().or(z.literal("")),
     avatar: z.string().nonempty("Avatar is required").url().optional(),
     borderColor: z
