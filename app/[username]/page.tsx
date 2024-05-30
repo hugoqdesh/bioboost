@@ -18,6 +18,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     select: {
       name: true,
       backgroundImage: true,
+      backgroundColor: true,
       bio: true,
       image: true,
       borderColor: true,

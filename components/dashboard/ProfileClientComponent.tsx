@@ -20,6 +20,7 @@ type User = {
   bio?: string | null;
   image?: string | null;
   borderColor?: string | null;
+  backgroundColor?: string | null; // Added
   links?: { [key: string]: string } | null;
   spotifyTrack?: string | null;
 };
@@ -60,6 +61,10 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
         </div>
       ) : (
         <>
+          <div
+            className="fixed top-0 left-0 w-full h-full"
+            style={{ backgroundColor: user.backgroundColor ?? "#13151a" }}
+          ></div>
           {user.backgroundImage && (
             <div className="fixed top-0 left-0 w-full h-full">
               <Image

@@ -25,6 +25,7 @@ export async function GET(req: Request) {
         bio: true,
         backgroundImage: true,
         borderColor: true,
+        backgroundColor: true,
         links: true,
         spotifyTrack: true,
       },

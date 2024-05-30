@@ -27,8 +27,11 @@ export default function Home() {
           <ul className="list-disc list-inside space-y-2">
             <li>
               Visit our websites at{" "}
-              <a href="x" className="text-blue-600 hover:underline">
-                x
+              <a
+                href="https://zylo-bio.vercel.app/"
+                className="text-blue-600 hover:underline"
+              >
+                zylo-bio.vercel.app
               </a>{" "}
             </li>
             <li>Engage with us in sales, marketing, or events</li>
@@ -41,7 +44,7 @@ export default function Home() {
           <p>
             This notice explains what information we collect, how we use it, and
             your rights. If you disagree with our policies, please stop using
-            our Services. For questions, contact us at X.
+            our Services. For questions, contact us at discord.
           </p>
         </div>
 
@@ -144,7 +147,7 @@ export default function Home() {
           <p>
             California residents can request information about our data sharing
             practices under the &quot;Shine The Light&quot; law and request the
-            removal of unwanted data. Contact us at X for such requests.
+            removal of unwanted data. Contact us at discord for such requests.
           </p>
         </div>
 
@@ -162,7 +165,7 @@ export default function Home() {
 
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-          <p>For questions or comments, email us at X .</p>
+          <p>For questions or comments, reach out to us on discord.</p>
         </div>
 
         <div className="mt-12">
@@ -172,7 +175,10 @@ export default function Home() {
           <p>
             You can request access to, update, or delete your personal
             information by visiting{" "}
-            <a href="#" className="text-blue-600 hover:underline">
+            <a
+              href="/dashboard/settings"
+              className="text-blue-600 hover:underline"
+            >
               here
             </a>
             .

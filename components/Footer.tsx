@@ -12,7 +12,7 @@ const Footer = () => {
             </p>
           </Link>
           <p className="mt-4 text-center text-white/50">
-            © 2024 BioBoost. All rights reserved.
+            © 2024 Zylo. All rights reserved.
           </p>
           <p className="mt-3 text-center text-white/50">
             Made with <span className="text-white">❤️</span> by{" "}

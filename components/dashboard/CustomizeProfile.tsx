@@ -86,6 +86,7 @@ const CustomizeProfile: React.FC = () => {
   const [bio, setBio] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [borderColor, setBorderColor] = useState<string>("");
+  const [backgroundColor, setBackgroundColor] = useState<string>("");
   const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
   const [spotifyTrack, setSpotifyTrack] = useState<string>("");
 
@@ -124,6 +125,7 @@ const CustomizeProfile: React.FC = () => {
             setBio(data.user.bio || "");
             setUsername(data.user.username);
             setBorderColor(data.user.borderColor);
+            setBackgroundColor(data.user.backgroundColor || "");
             setUsernames(parsedUsernames);
             setSpotifyTrack(data.user.spotifyTrack || "");
           } else {
@@ -178,12 +180,8 @@ const CustomizeProfile: React.FC = () => {
     bio: z.string().max(150).nullable(),
     background: z.string().url().optional().or(z.literal("")),
     avatar: z.string().nonempty("Avatar is required").url().optional(),
-    borderColor: z
-      .string()
-      .nonempty("Border color is required")
-      .min(4)
-      .max(7)
-      .optional(),
+    borderColor: z.string().max(7).optional(),
+    backgroundColor: z.string().max(7).optional(),
     links: z.record(z.string().url()).optional(),
     spotifyTrack: z.string().url().nullable().or(z.literal("")),
   });
@@ -223,6 +221,7 @@ const CustomizeProfile: React.FC = () => {
         background,
         avatar,
         borderColor,
+        backgroundColor,
         links: fullLinks,
         spotifyTrack,
       });
@@ -237,6 +236,7 @@ const CustomizeProfile: React.FC = () => {
           newBio: bio === "" ? null : bio,
           newBackgroundImage: background === "" ? null : background,
           newBorderColor: borderColor,
+          newBackgroundColor: backgroundColor,
           newLinks: fullLinks,
           newSpotifyTrack: spotifyTrack === "" ? null : spotifyTrack,
         }),
@@ -339,6 +339,16 @@ const CustomizeProfile: React.FC = () => {
               {backgroundPreview}
             </Section>
           </div>
+
+          <Section title="Profile Background Color">
+            <TextInput
+              value={backgroundColor}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setBackgroundColor(e.target.value)
+              }
+              placeholder="Background color (hex code)"
+            />
+          </Section>
 
           <Section title="Profile Border Color">
             <TextInput

@@ -17,6 +17,7 @@ model User {
   name          String?
   username      String?         @unique
   backgroundImage String?
+  backgroundColor String?       @default("#13151a")
   borderColor   String?         @default("#ffffff")
   bio           String?
   image         String?

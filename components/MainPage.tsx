@@ -26,8 +26,8 @@ const MainPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Kickstart your bio journey with Zylo! Join 3,000+ users and spread
-            your bio across platforms like{" "}
+            Kickstart your bio journey with Zylo! {/*Join 3,000+ users and */}
+            spread your bio across platforms like{" "}
             <span className="text-[#E1306C]">Instagram</span>,{" "}
             <span className="text-[#7289da]">Discord</span>,{" "}
             <span className="text-[#FE2C55]">TikTok</span>,{" "}

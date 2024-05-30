@@ -62,9 +62,9 @@ export default function Home() {
           <p>
             If the user has purchased a custom product that is not exactly what
             was initially requested when paid for, and are dissatisfied as a
-            result of this, they must contact us at X. This must be done within
-            48 hours of the disbursement of the service or product. The user
-            agrees to a 7 day timeframe for remediation of the issue.
+            result of this, they must contact us at discord. This must be done
+            within 48 hours of the disbursement of the service or product. The
+            user agrees to a 7 day timeframe for remediation of the issue.
           </p>
         </div>
       </div>

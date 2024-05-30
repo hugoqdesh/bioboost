@@ -11,6 +11,7 @@ export async function PUT(req: Request) {
     newBio,
     newBackgroundImage,
     newBorderColor,
+    newBackgroundColor,
     newLinks,
     newSpotifyTrack,
   } = await req.json();
@@ -23,6 +24,8 @@ export async function PUT(req: Request) {
   if (newBackgroundImage !== undefined)
     updateData.backgroundImage = newBackgroundImage;
   if (newBorderColor !== undefined) updateData.borderColor = newBorderColor;
+  if (newBackgroundColor !== undefined)
+    updateData.backgroundColor = newBackgroundColor;
   if (newLinks !== undefined) updateData.links = newLinks;
   if (newSpotifyTrack !== undefined)
     updateData.spotifyTrack = newSpotifyTrack === "" ? null : newSpotifyTrack;
