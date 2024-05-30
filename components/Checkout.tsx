@@ -39,6 +39,7 @@ const PricingPlan = () => {
                 Get access to all premium features for just 0.99$ per month. No
                 hidden fees or extra charges.
               </p>
+
               <a
                 href="#" //invite to discord
                 rel="noreferrer"

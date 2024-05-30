@@ -69,7 +69,7 @@ const Nav = () => {
         </div>
         <div className="mt-auto">
           <Link
-            href="/upgrade"
+            href="#"
             className="flex items-center px-4 py-2 text-gray-300 hover:bg-white/15 rounded-lg transition-colors"
           >
             <GiUpgrade />

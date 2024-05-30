@@ -194,12 +194,12 @@ const Settings = () => {
                 <option value="monospace">Monospace</option>
               </select>
             </div>
-            {/* <a
+            <a
               href="/upgrade"
               className="cursor-pointer absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded-lg text-xs font-medium hover:bg-blue-600 transition duration-200"
             >
-              Upgrade to PRO
-            </a> */}
+              Coming Soon
+            </a>
           </section>
 
           {/* SEO */}
@@ -217,13 +217,12 @@ const Settings = () => {
               onChange={(e) => setTitle(e.target.value)}
               className="text-white rounded w-full text-start px-2.5 py-1.5 border border-white/5 bg-white/5 hover:border-white/10 placeholder:text-white/50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 mb-2"
             />
-            {/* Add upgrade button */}
-            {/* <a
+            <a
               href="/upgrade"
               className="cursor-pointer absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded-lg text-xs font-medium hover:bg-blue-600 transition duration-200"
             >
-              Upgrade to PRO
-            </a> */}
+              Coming Soon
+            </a>
           </section>
 
           <div className="mb-4">
