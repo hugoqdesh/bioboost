@@ -47,7 +47,7 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
     const loadImages = async () => {
       setTimeout(() => {
         setIsLoaded(true);
-      }, 2000);
+      }, 3000);
     };
 
     loadImages();
