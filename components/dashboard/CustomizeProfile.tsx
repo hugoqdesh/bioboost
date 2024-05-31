@@ -79,6 +79,7 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({
 const CustomizeProfile: React.FC = () => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
+  const userRole = session?.user?.role;
 
   const [background, setBackground] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
@@ -329,14 +330,25 @@ const CustomizeProfile: React.FC = () => {
                 placeholder="Enter your avatar URL"
               />
               {avatarPreview}
-              <TextInput
-                value={background}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setBackground(e.target.value)
-                }
-                placeholder="Enter your background URL (optional)"
-              />
-              {backgroundPreview}
+              {userRole === "PRO" || userRole === "admin" ? (
+                <>
+                  <TextInput
+                    value={background}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setBackground(e.target.value)
+                    }
+                    placeholder="Enter your background URL (optional)"
+                  />
+                  {backgroundPreview}
+                </>
+              ) : (
+                <a
+                  href="/upgrade"
+                  className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
+                >
+                  Upgrade to PRO to set a background image
+                </a>
+              )}
             </Section>
           </div>
 
