@@ -133,6 +133,13 @@ const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {
                     />
                   </div>
                 )}
+
+                {/* <div className="flex justify-center mt-4 items-center">
+                  <FaDiscord size={18} className="text-blue-600 mr-1" />
+                  <a href="" className="text-blue-600 hover:underline">
+                    Join Discord
+                  </a>
+                </div> */}
               </div>
             </Tilt>
           </div>

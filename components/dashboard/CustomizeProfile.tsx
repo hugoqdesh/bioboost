@@ -71,7 +71,7 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({
   children,
 }) => (
   <section className="mb-8">
-    <h2 className="text-2xl font-semibold text-start mb-1">{title}</h2>
+    <h2 className="text-2xl font-semibold text-start mb-3">{title}</h2>
     <div>{children}</div>
   </section>
 );
@@ -319,7 +319,7 @@ const CustomizeProfile: React.FC = () => {
             </Section>
 
             <Section title="Profile Images">
-              <p className="text-sm mb-2 text-white/70">
+              <p className="text-sm mb-2 -mt-2 text-white/70">
                 (use high quality images)
               </p>
               <TextInput
@@ -401,13 +401,22 @@ const CustomizeProfile: React.FC = () => {
           </Section>
 
           <Section title="Spotify Track">
-            <TextInput
-              value={spotifyTrack}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSpotifyTrack(e.target.value)
-              }
-              placeholder="Spotify song URL"
-            />
+            {userRole === "PRO" || userRole === "admin" ? (
+              <TextInput
+                value={spotifyTrack}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setSpotifyTrack(e.target.value)
+                }
+                placeholder="Spotify song URL"
+              />
+            ) : (
+              <a
+                href="/upgrade"
+                className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer p-2"
+              >
+                Upgrade to PRO to set a background image
+              </a>
+            )}
           </Section>
 
           {error && (
