@@ -23,7 +23,7 @@ model User {
   image         String?
   email         String          @unique
   emailVerified DateTime?
-  role          String?         @default("USER")
+  role          String?         @default("PRO")
   accounts      Account[]
   sessions      Session[]
   links         Json?
