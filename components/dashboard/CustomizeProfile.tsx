@@ -318,7 +318,7 @@ const CustomizeProfile: React.FC = () => {
               />
             </Section>
 
-            <Section title="Profile Images">
+            <Section title="PFP">
               <p className="text-sm mb-2 -mt-2 text-white/70">
                 (use high quality images)
               </p>
@@ -331,7 +331,7 @@ const CustomizeProfile: React.FC = () => {
               />
               {avatarPreview}
               {userRole === "PRO" || userRole === "admin" ? (
-                <>
+                <Section title="Background Image">
                   <TextInput
                     value={background}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -340,14 +340,16 @@ const CustomizeProfile: React.FC = () => {
                     placeholder="Enter your background URL (optional)"
                   />
                   {backgroundPreview}
-                </>
+                </Section>
               ) : (
-                <a
-                  href="/upgrade"
-                  className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
-                >
-                  Upgrade to PRO
-                </a>
+                <Section title="Background Image">
+                  <a
+                    href="/upgrade"
+                    className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
+                  >
+                    Upgrade to PRO
+                  </a>
+                </Section>
               )}
             </Section>
           </div>
