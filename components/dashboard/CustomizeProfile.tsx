@@ -346,7 +346,7 @@ const CustomizeProfile: React.FC = () => {
                   href="/upgrade"
                   className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
                 >
-                  Upgrade to PRO to set a background image
+                  Upgrade to PRO
                 </a>
               )}
             </Section>
@@ -414,7 +414,7 @@ const CustomizeProfile: React.FC = () => {
                 href="/upgrade"
                 className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer p-2"
               >
-                Upgrade to PRO to set a background image
+                Upgrade to PRO
               </a>
             )}
           </Section>
