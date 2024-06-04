@@ -30,7 +30,7 @@ const Header = () => {
             Store
           </Link>
           <Link
-            href="https://discord.gg/8tcvECbDtn"
+            href="/"
             className="hover:text-white text-lg transition duration-300"
           >
             Discord
@@ -78,7 +78,7 @@ const Header = () => {
             Store
           </Link>
           <Link
-            href="https://discord.gg/8tcvECbDtn"
+            href="/"
             onClick={() => setIsNavOpen(false)}
             className="text-lg font-semibold"
           >

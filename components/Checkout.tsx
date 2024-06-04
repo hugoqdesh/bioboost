@@ -43,7 +43,7 @@ const PricingPlan = () => {
               <p className="mb-4">to subscribe join the discord</p>
 
               <a
-                href="https://discord.gg/ShNu7jUmWj"
+                href="/"
                 rel="noreferrer"
                 className={`relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-white before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max
                 `}
