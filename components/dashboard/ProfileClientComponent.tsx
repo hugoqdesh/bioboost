@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
 import {
-  FaDiscord,
   FaGithub,
   FaTwitter,
   FaInstagram,
@@ -11,6 +10,9 @@ import {
   FaTiktok,
   FaSpotify,
   FaGlobe,
+  FaSoundcloud,
+  FaSnapchat,
+  FaPatreon,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
 
@@ -20,7 +22,7 @@ type User = {
   bio?: string | null;
   image?: string | null;
   borderColor?: string | null;
-  backgroundColor?: string | null; // Added
+  backgroundColor?: string | null;
   links?: { [key: string]: string } | null;
   spotifyTrack?: string | null;
 };
@@ -30,14 +32,17 @@ type ProfileClientComponentProps = {
 };
 
 const linkIcons: Record<string, JSX.Element> = {
-  website: <FaGlobe size={20} />,
-  github: <FaGithub size={20} />,
-  twitter: <FaTwitter size={20} />,
-  instagram: <FaInstagram size={20} />,
-  youtube: <FaYoutube size={20} />,
-  tiktok: <FaTiktok size={20} />,
-  spotify: <FaSpotify size={20} />,
-  discord: <FaDiscord size={20} />,
+  website: <FaGlobe size={24} />,
+  github: <FaGithub size={24} />,
+  twitter: <FaTwitter size={24} />,
+  instagram: <FaInstagram size={24} />,
+  youtube: <FaYoutube size={24} />,
+  tiktok: <FaTiktok size={24} />,
+  spotify: <FaSpotify size={24} />,
+  soundcloud: <FaSoundcloud size={24} />,
+  snapchat: <FaSnapchat size={24} />,
+  patreon: <FaPatreon size={24} />,
+  // discord: <FaDiscord size={24} />,
 };
 
 const ProfileClientComponent = ({ user }: ProfileClientComponentProps) => {

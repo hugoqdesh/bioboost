@@ -13,6 +13,9 @@ import {
   FaTiktok,
   FaSpotify,
   FaGlobe,
+  FaSoundcloud,
+  FaSnapchat,
+  FaPatreon,
 } from "react-icons/fa";
 
 type SocialPlatforms =
@@ -22,7 +25,10 @@ type SocialPlatforms =
   | "instagram"
   | "youtube"
   | "tiktok"
-  | "spotify";
+  | "spotify"
+  | "soundcloud"
+  | "snapchat"
+  | "patreon";
 
 const socialIcons: Record<SocialPlatforms, React.ReactNode> = {
   website: <FaGlobe />,
@@ -32,6 +38,9 @@ const socialIcons: Record<SocialPlatforms, React.ReactNode> = {
   youtube: <FaYoutube />,
   tiktok: <FaTiktok />,
   spotify: <FaSpotify />,
+  soundcloud: <FaSoundcloud />,
+  snapchat: <FaSnapchat />,
+  patreon: <FaPatreon />,
 };
 
 const TextInput: React.FC<{
@@ -112,6 +121,9 @@ const CustomizeProfile: React.FC = () => {
               youtube: "https://www.youtube.com/",
               tiktok: "https://www.tiktok.com/@",
               spotify: "https://open.spotify.com/user/",
+              soundcloud: "https://soundcloud.com/",
+              snapchat: "https://www.snapchat.com/add/",
+              patreon: "https://www.patreon.com/",
             };
 
             const parsedUsernames = Object.keys(links).reduce((acc, key) => {
@@ -207,6 +219,9 @@ const CustomizeProfile: React.FC = () => {
         youtube: "https://www.youtube.com/",
         tiktok: "https://www.tiktok.com/@",
         spotify: "https://open.spotify.com/user/",
+        soundcloud: "https://soundcloud.com/",
+        snapchat: "https://www.snapchat.com/add/",
+        patreon: "https://www.patreon.com/",
       };
 
       const fullLinks = Object.keys(usernames).reduce((acc, key) => {
@@ -384,6 +399,9 @@ const CustomizeProfile: React.FC = () => {
                 "youtube",
                 "tiktok",
                 "spotify",
+                "soundcloud",
+                "snapchat",
+                "patreon",
               ].map((platform) => (
                 <TextInput
                   key={platform}
